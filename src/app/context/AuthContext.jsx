@@ -14,15 +14,13 @@ export const AuthProvider = ({ children }) => {
         const unsub = onAuthStateChanged(auth, async (currentUser) => {
             setLoading(true);
             if (currentUser) {
-                setUser(currentUser); // ✅ Set user immediately to allow navigation
+                setUser(currentUser);
 
                 const ref = doc(db, "users", currentUser.uid);
                 const snap = await getDoc(ref);
 
                 if (!snap.exists()) {
-                    // If checking for a user that was just created, checking role might be needed
-                    // But usually Register handles creation. Validating just in case.
-                    setRole("user"); // Default fallback
+                    setRole("user");
                 } else {
                     setRole(snap.data().role);
                 }

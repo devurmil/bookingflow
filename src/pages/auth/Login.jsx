@@ -15,7 +15,6 @@ const Login = () => {
         try {
             const res = await signInWithEmailAndPassword(auth, email, password);
 
-            // Check user role
             const userDoc = await getDoc(doc(db, "users", res.user.uid));
             if (userDoc.exists() && userDoc.data().role === "admin") {
                 navigate("/admin");
