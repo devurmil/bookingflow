@@ -3,12 +3,12 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAeDqdOlhLcsk6dQKoGYih5z69Pj13qQkg",
-    authDomain: "booking-flow-138bb.firebaseapp.com",
-    projectId: "booking-flow-138bb",
-    storageBucket: "booking-flow-138bb.firebasestorage.app",
-    messagingSenderId: "907977686479",
-    appId: "1:907977686479:web:b11b4bdd9a510c81a926ba",
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);
