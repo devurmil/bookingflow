@@ -1,0 +1,41 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper: Check if the authenticated user has 'admin' role
+    function isAdmin() {
+      return request.auth != null && 
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin";
+    }
+
+    // Helper: Check if user is accessing their own data
+    function isOwner(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
+
+    // Users Collection
+    match /users/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow write: if isOwner(userId); // Users can update their own profile
+    }
+
+    // Services Collection (Public read, Admin write)
+    match /services/{serviceId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Appointments Collection
+    match /appointments/{appointmentId} {
+      // Allow create only if assigning to self
+      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+      
+      // Allow read if owner OR admin
+      allow read: if request.auth != null && (resource.data.userId == request.auth.uid || isAdmin());
+      
+      // Allow update/delete only by admin (Approvals/Rejections)
+      allow write: if isAdmin();
+    }
+  }
+}
