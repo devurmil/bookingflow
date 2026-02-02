@@ -2,6 +2,7 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig";
 import { useAuth } from "../../app/context/AuthContext";
 import { useEffect, useState } from "react";
+import Navbar from "../../components/layout/Navbar";
 
 const MyAppointments = () => {
     const { user } = useAuth();
@@ -24,15 +25,9 @@ const MyAppointments = () => {
         fetchMyAppointments();
     }, [user]);
 
-    const Header = () => (
-        <nav className="navbar">
-            <h3>BookingFlow</h3>
-        </nav>
-    );
-
     return (
         <div className="container">
-            <Header />
+            <Navbar />
             <h2>My Appointments</h2>
 
             <div className="grid">

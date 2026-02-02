@@ -5,6 +5,9 @@ import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import Unauthorized from "./pages/auth/Unauthorized";
 import AdminDashboard from "./pages/admin/Dashboard";
+import AdminServices from "./pages/admin/Services";
+import AdminAppointments from "./pages/admin/Appointments";
+import AdminUsers from "./pages/admin/Users";
 import UserHome from "./pages/user/Home";
 import MyAppointments from "./pages/user/MyAppointments";
 import { AuthProvider } from "./app/context/AuthContext";
@@ -23,7 +26,6 @@ function App() {
             element={
               <ProtectedRoute>
                 <UserHome />
-                <MyAppointments />
               </ProtectedRoute>
             }
           />
@@ -32,6 +34,7 @@ function App() {
             path="/my-appointments"
             element={
               <ProtectedRoute>
+                <MyAppointments />
               </ProtectedRoute>
             }
           />
@@ -41,6 +44,33 @@ function App() {
             element={
               <ProtectedRoute role="admin">
                 <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/admin/services"
+            element={
+              <ProtectedRoute role="admin">
+                <AdminServices />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/admin/appointments"
+            element={
+              <ProtectedRoute role="admin">
+                <AdminAppointments />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/admin/users"
+            element={
+              <ProtectedRoute role="admin">
+                <AdminUsers />
               </ProtectedRoute>
             }
           />

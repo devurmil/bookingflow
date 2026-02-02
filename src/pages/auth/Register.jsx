@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 const Register = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [name, setName] = useState("");
     const navigate = useNavigate();
 
     const handleRegister = async (e) => {
@@ -21,8 +22,10 @@ const Register = () => {
             );
 
             await setDoc(doc(db, "users", res.user.uid), {
+                name,
                 email: res.user.email,
                 role: "user",
+                isActive: true,
                 createdAt: new Date(),
             });
             toast.success("Account created successfully");
@@ -42,6 +45,16 @@ const Register = () => {
         <div className="auth-container">
             <form onSubmit={handleRegister} className="card auth-card">
                 <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>Create Account</h2>
+
+                <div className="form-group">
+                    <input
+                        type="text"
+                        placeholder="Full Name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        required
+                    />
+                </div>
 
                 <div className="form-group">
                     <input

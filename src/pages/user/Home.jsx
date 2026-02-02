@@ -1,27 +1,13 @@
 import { useEffect, useState } from "react";
 import { collection, getDocs, addDoc } from "firebase/firestore";
-import { signOut } from "firebase/auth";
-import { auth, db } from "../../firebase/firebaseConfig";
+import { db } from "../../firebase/firebaseConfig";
 import { useAuth } from "../../app/context/AuthContext";
+import Navbar from "../../components/layout/Navbar";
 
 const Home = () => {
     const { user } = useAuth();
     const [services, setServices] = useState([]);
     const [loading, setLoading] = useState(false);
-
-    const handleLogout = () => signOut(auth);
-
-    // Simple inline nav function (could be a component)
-    const Header = () => (
-        <nav className="navbar">
-            <h3>BookingFlow</h3>
-            <div className="flex-gap">
-                <a href="/" className="nav-link active">Services</a>
-                <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>{user?.email}</span>
-                <button onClick={handleLogout} className="btn-danger btn-sm">Logout</button>
-            </div>
-        </nav>
-    );
 
     const fetchServices = async () => {
         const snap = await getDocs(collection(db, "services"));
@@ -54,7 +40,7 @@ const Home = () => {
 
     return (
         <div className="container">
-            <Header />
+            <Navbar />
             <h2>Available Services</h2>
             <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>Select a service to book an appointment.</p>
 

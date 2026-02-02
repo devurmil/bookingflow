@@ -15,10 +15,22 @@ service cloud.firestore {
     }
 
     // Users Collection
+    // Users Collection
     match /users/{userId} {
+
+      // Read: owner OR admin
       allow read: if isOwner(userId) || isAdmin();
-      allow write: if isOwner(userId); // Users can update their own profile
+
+      // Create: user can create only own doc
+      allow create: if isOwner(userId);
+
+      // Update: owner OR admin
+      allow update: if isOwner(userId) || isAdmin();
+
+      // Delete: admin ONLY, but NOT self
+      allow delete: if isAdmin() && request.auth.uid != userId;
     }
+
 
     // Services Collection (Public read, Admin write)
     match /services/{serviceId} {
