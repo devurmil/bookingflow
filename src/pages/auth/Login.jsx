@@ -20,15 +20,23 @@ const Login = () => {
             const res = await signInWithEmailAndPassword(auth, email, password);
 
             const userDoc = await getDoc(doc(db, "users", res.user.uid));
+
+            if (!userDoc.exists()) {
+                await auth.signOut();
+                toast.error("Access Denied: Identity records purged from registry.");
+                setIsSubmitting(false);
+                return;
+            }
+
             const userData = userDoc.data();
 
-            if (userDoc.exists() && userData.isActive === false) {
+            if (userData.isActive === false) {
                 await auth.signOut();
                 navigate("/locked");
                 return;
             }
 
-            if (userDoc.exists() && userData.role === "admin") {
+            if (userData.role === "admin") {
                 navigate("/admin");
             } else {
                 navigate("/");

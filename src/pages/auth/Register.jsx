@@ -33,6 +33,7 @@ const Register = () => {
                 createdAt: new Date(),
             });
             toast.success("Identity Created. Welcome to the ecosystem.");
+            await auth.signOut();
             navigate("/login");
 
         } catch (error) {

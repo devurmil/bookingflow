@@ -16,7 +16,9 @@ import {
     Search,
     Type,
     FileText,
-    Grid
+    Grid,
+    Edit2,
+    X
 } from "lucide-react";
 
 const Services = () => {
@@ -31,6 +33,9 @@ const Services = () => {
         location: "",
         category: "General",
     });
+
+    const [isEditing, setIsEditing] = useState(false);
+    const [editingId, setEditingId] = useState(null);
 
     const fetchServices = async () => {
         setLoading(true);
@@ -68,19 +73,49 @@ const Services = () => {
         if (!formData.price) return toast.warn("Service price required");
 
         try {
-            await addDoc(collection(db, "services"), {
-                ...formData,
-                price: parseFloat(formData.price),
-                active: true,
-                createdAt: Timestamp.now()
-            });
+            if (isEditing) {
+                const serviceRef = doc(db, "services", editingId);
+                await updateDoc(serviceRef, {
+                    ...formData,
+                    price: parseFloat(formData.price)
+                });
+                toast.success("Service intelligence updated");
+                setIsEditing(false);
+                setEditingId(null);
+            } else {
+                await addDoc(collection(db, "services"), {
+                    ...formData,
+                    price: parseFloat(formData.price),
+                    active: true,
+                    createdAt: Timestamp.now()
+                });
+                toast.success("New service deployed");
+            }
             setFormData({ title: "", description: "", price: "", location: "", category: "General" });
             fetchServices();
-            toast.success("New service deployed");
         } catch (error) {
-            console.error("Error adding service: ", error);
-            toast.error("Deployment failed");
+            console.error("Error saving service: ", error);
+            toast.error("Operation failed");
         }
+    };
+
+    const handleEdit = (service) => {
+        setFormData({
+            title: service.title || "",
+            description: service.description || "",
+            price: service.price || "",
+            location: service.location || "",
+            category: service.category || "General"
+        });
+        setIsEditing(true);
+        setEditingId(service.id);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    const cancelEdit = () => {
+        setIsEditing(false);
+        setEditingId(null);
+        setFormData({ title: "", description: "", price: "", location: "", category: "General" });
     };
 
     const deleteService = async (id) => {
@@ -140,11 +175,21 @@ const Services = () => {
                 {/* Form Side */}
                 <div className="lg:col-span-4">
                     <div className="glass-card p-8 rounded-[2.5rem] sticky top-8">
-                        <div className="flex items-center gap-3 mb-8">
-                            <div className="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center">
-                                <Plus className="w-5 h-5 text-indigo-400" />
+                        <div className="flex items-center justify-between mb-8">
+                            <div className="flex items-center gap-3">
+                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${isEditing ? 'bg-amber-500/10' : 'bg-indigo-500/10'}`}>
+                                    {isEditing ? <Edit2 className="w-5 h-5 text-amber-400" /> : <Plus className="w-5 h-5 text-indigo-400" />}
+                                </div>
+                                <h3 className="text-xl font-bold text-white tracking-tight">{isEditing ? 'Edit Service' : 'Add Service'}</h3>
                             </div>
-                            <h3 className="text-xl font-bold text-white tracking-tight">Add Service</h3>
+                            {isEditing && (
+                                <button
+                                    onClick={cancelEdit}
+                                    className="p-2 bg-slate-900 text-slate-500 hover:text-white rounded-lg border border-slate-800 transition-all"
+                                >
+                                    <X className="w-4 h-4" />
+                                </button>
+                            )}
                         </div>
 
                         <form onSubmit={addService} className="space-y-5">
@@ -220,10 +265,10 @@ const Services = () => {
 
                             <button
                                 type="submit"
-                                className="w-full py-5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl font-bold transition-all active:scale-[0.97] shadow-lg shadow-indigo-600/20 mt-4 flex items-center justify-center gap-3"
+                                className={`w-full py-5 text-white rounded-2xl font-bold transition-all active:scale-[0.97] shadow-lg mt-4 flex items-center justify-center gap-3 ${isEditing ? 'bg-amber-600 hover:bg-amber-500 shadow-amber-600/20' : 'bg-indigo-600 hover:bg-indigo-500 shadow-indigo-600/20'}`}
                             >
-                                <Plus className="w-5 h-5" />
-                                Deploy Service
+                                {isEditing ? <Edit2 className="w-5 h-5" /> : <Plus className="w-5 h-5" />}
+                                {isEditing ? 'Update Intelligence' : 'Deploy Service'}
                             </button>
                         </form>
                     </div>
@@ -272,8 +317,16 @@ const Services = () => {
                                             </div>
                                             <div className="flex gap-2">
                                                 <button
+                                                    onClick={() => handleEdit(s)}
+                                                    className="p-2.5 bg-indigo-500/10 text-indigo-400 rounded-xl hover:bg-indigo-500 hover:text-white transition-all opacity-0 group-hover:opacity-100 shadow-lg"
+                                                    title="Edit Service"
+                                                >
+                                                    <Edit2 className="w-4 h-4" />
+                                                </button>
+                                                <button
                                                     onClick={() => deleteService(s.id)}
                                                     className="p-2.5 bg-red-500/10 text-red-400 rounded-xl hover:bg-red-500 hover:text-white transition-all opacity-0 group-hover:opacity-100 shadow-lg"
+                                                    title="Delete Service"
                                                 >
                                                     <Trash2 className="w-4 h-4" />
                                                 </button>

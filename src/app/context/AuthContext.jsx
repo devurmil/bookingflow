@@ -21,8 +21,8 @@ export const AuthProvider = ({ children }) => {
                 const snap = await getDoc(ref);
 
                 if (!snap.exists()) {
-                    setRole("user");
-                    setIsActive(true);
+                    setRole(null);
+                    setIsActive(false);
                 } else {
                     const data = snap.data();
                     setRole(data.role);
