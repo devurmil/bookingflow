@@ -1,16 +1,17 @@
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import LoadingScreen from "../../components/common/LoadingScreen";
 
 const ProtectedRoute = ({ children, role }) => {
-  const { user, role: userRole, loading } = useAuth(); // Assuming loading is available from AuthContext
+  const { user, role: userRole, isActive, loading } = useAuth();
 
-  if (loading) return <div>Loading...</div>; // Or a proper loading spinner
+  if (loading) return <LoadingScreen />;
 
   if (!user) return <Navigate to="/login" replace />;
 
-  // If the route requires a specific role (e.g. 'admin') and the user doesn't have it
+  if (user && !isActive) return <Navigate to="/locked" replace />;
+
   if (role && userRole !== role) {
-    // If a regular user tries to go to admin pages, send them home
     if (role === 'admin' && userRole === 'user') {
       return <Navigate to="/" replace />;
     }

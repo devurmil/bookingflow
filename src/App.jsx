@@ -4,6 +4,7 @@ import ProtectedRoute from "./app/routes/ProtectedRoute";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import Unauthorized from "./pages/auth/Unauthorized";
+import Locked from "./pages/auth/Locked";
 import AdminDashboard from "./pages/admin/Dashboard";
 import AdminServices from "./pages/admin/Services";
 import AdminAppointments from "./pages/admin/Appointments";
@@ -20,6 +21,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/unauthorized" element={<Unauthorized />} />
+          <Route path="/locked" element={<Locked />} />
 
           <Route
             path="/"

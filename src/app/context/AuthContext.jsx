@@ -8,6 +8,7 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [role, setRole] = useState(null);
+    const [isActive, setIsActive] = useState(true);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -21,12 +22,16 @@ export const AuthProvider = ({ children }) => {
 
                 if (!snap.exists()) {
                     setRole("user");
+                    setIsActive(true);
                 } else {
-                    setRole(snap.data().role);
+                    const data = snap.data();
+                    setRole(data.role);
+                    setIsActive(data.isActive !== false);
                 }
             } else {
                 setUser(null);
                 setRole(null);
+                setIsActive(true);
             }
 
             setLoading(false);
@@ -38,7 +43,7 @@ export const AuthProvider = ({ children }) => {
     if (loading) return <h3>Loading...</h3>;
 
     return (
-        <AuthContext.Provider value={{ user, role, loading }}>
+        <AuthContext.Provider value={{ user, role, isActive, loading }}>
             {children}
         </AuthContext.Provider>
     );
