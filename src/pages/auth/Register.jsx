@@ -34,7 +34,7 @@ const Register = () => {
             });
             toast.success("Identity Created. Welcome to the ecosystem.");
             await auth.signOut();
-            navigate("/login");
+            navigate("/login", { replace: true });
 
         } catch (error) {
             if (error.code === "auth/email-already-in-use") {

@@ -105,14 +105,14 @@ export default function Users() {
     };
 
     const deleteUser = async (id) => {
-        if (!confirm("Permanently erase this identity from records?")) return;
+        if (!confirm("Permanently erase this identity from database records? You must still manually delete from Firebase Auth.")) return;
         try {
             await deleteDoc(doc(db, "users", id));
             setUsers(users.filter(u => u.id !== id));
-            toast.success("Identity purged");
+            toast.success("Database record purged");
         } catch (error) {
             console.error("Error deleting user:", error);
-            toast.error("Purge failed");
+            toast.error("Operation failed");
         }
     };
 

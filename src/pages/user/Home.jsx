@@ -6,6 +6,7 @@ import UserLayout from "../../components/layout/UserLayout";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, MapPin, Clock, ArrowRight, CheckCircle2, Zap } from "lucide-react";
 import { toast } from "react-toastify";
+import { openRazorpay } from "../../utils/razorpayPayment";
 
 const Home = () => {
     const { user } = useAuth();
@@ -27,24 +28,48 @@ const Home = () => {
         }
     };
 
-    const bookAppointment = async (service) => {
-        setLoading(true);
-        try {
-            await addDoc(collection(db, "appointments"), {
-                userId: user.uid,
-                userEmail: user.email,
-                serviceId: service.id,
-                serviceName: service.title,
-                status: "pending",
-                createdAt: Timestamp.now(),
-            });
-            toast.success(`Request for ${service.title} submitted.`);
-        } catch (e) {
-            console.error(e);
-            toast.error("Booking protocol failed.");
-        } finally {
-            setLoading(false);
+    const bookAppointment = (service) => {
+        if (!user) {
+            toast.error("Please login to continue.");
+            return;
         }
+
+        openRazorpay({
+            amount: service.price,
+            serviceName: service.title,
+
+            onSuccess: async (payment) => {
+                setLoading(true);
+                try {
+                    await addDoc(collection(db, "appointments"), {
+                        userId: user.uid,
+                        userEmail: user.email,
+
+                        serviceId: service.id,
+                        serviceName: service.title,
+                        price: service.price,
+
+                        payment: {
+                            provider: "razorpay",
+                            paymentId: payment.razorpay_payment_id,
+                            orderId: payment.razorpay_order_id || null,
+                            signature: payment.razorpay_signature || null,
+                            mode: "test",
+                        },
+
+                        status: "confirmed",
+                        createdAt: Timestamp.now(),
+                    });
+
+                    toast.success(`✅ ${service.title} booked successfully!`);
+                } catch (e) {
+                    console.error(e);
+                    toast.error("Payment done, but booking failed.");
+                } finally {
+                    setLoading(false);
+                }
+            },
+        });
     };
 
     useEffect(() => {
