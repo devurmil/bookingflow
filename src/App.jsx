@@ -11,6 +11,8 @@ import AdminAppointments from "./pages/admin/Appointments";
 import AdminUsers from "./pages/admin/Users";
 import UserHome from "./pages/user/Home";
 import MyAppointments from "./pages/user/MyAppointments";
+import UserProfile from "./pages/user/Profile";
+import AdminProfile from "./pages/admin/Profile";
 import { AuthProvider } from "./app/context/AuthContext";
 
 function App() {
@@ -37,6 +39,15 @@ function App() {
             element={
               <ProtectedRoute>
                 <MyAppointments />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <UserProfile />
               </ProtectedRoute>
             }
           />
@@ -73,6 +84,15 @@ function App() {
             element={
               <ProtectedRoute role="admin">
                 <AdminUsers />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/admin/profile"
+            element={
+              <ProtectedRoute role="admin">
+                <AdminProfile />
               </ProtectedRoute>
             }
           />

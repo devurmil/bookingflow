@@ -81,9 +81,19 @@ const Navbar = () => {
 
                     <div className="h-8 w-px bg-slate-800" />
 
+                    <Link
+                        to="/profile"
+                        className="w-10 h-10 bg-indigo-500/10 hover:bg-indigo-500 text-indigo-400 hover:text-white rounded-xl transition-all border border-indigo-500/20 flex items-center justify-center font-black active:scale-95 group relative"
+                        title="Account Settings"
+                    >
+                        {user?.email?.charAt(0).toUpperCase()}
+                        <div className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-500 border-2 border-slate-900 rounded-full" />
+                    </Link>
+
                     <button
                         onClick={handleLogout}
                         className="p-2.5 bg-rose-500/10 hover:bg-rose-500 text-rose-500 hover:text-white rounded-xl transition-all border border-rose-500/20 flex items-center gap-2 active:scale-95 group"
+                        title="Logout"
                     >
                         <LogOut className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                         <span className="hidden sm:inline text-[10px] font-black uppercase tracking-widest">Exit</span>

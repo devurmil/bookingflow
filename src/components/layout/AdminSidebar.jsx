@@ -1,8 +1,11 @@
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
 import { useAuth } from "../../app/context/AuthContext";
 import { motion, AnimatePresence } from "framer-motion";
+import { collection, getDocs, getDoc, doc } from "firebase/firestore";
+import { db } from "../../firebase/firebaseConfig";
 import {
     LayoutDashboard,
     Wrench,
@@ -10,13 +13,14 @@ import {
     Users,
     LogOut,
     ChevronRight,
-    CircleDot
+    CircleDot,
+    Settings
 } from "lucide-react";
 
 const AdminSidebar = () => {
     const location = useLocation();
     const { user } = useAuth();
-
+    const [userName, setUserName] = useState(null);
     const isActive = (path) =>
         location.pathname === path || location.pathname.startsWith(`${path}/`);
 
@@ -29,6 +33,24 @@ const AdminSidebar = () => {
         }
     };
 
+    useEffect(() => {
+            const fetchAdminData = async () => {
+                if (!user) return;
+                try {
+                    const usersSnap = await getDocs(collection(db, "users"));
+                   
+                    const userRef = doc(db, "users", user.uid);
+                    const userSnap = await getDoc(userRef);
+                    if (userSnap.exists()) {
+                        setUserName(userSnap.data().name);
+                    }
+                } catch (error) {
+                    console.error("Error fetching admin data:", error);
+                }
+            };
+            fetchAdminData();
+        }, [user]);
+
     const navItems = [
         { path: "/admin", label: "Dashboard", icon: LayoutDashboard, gradient: "from-indigo-500 to-blue-600" },
         { path: "/admin/services", label: "Services", icon: Wrench, gradient: "from-emerald-500 to-teal-600" },
@@ -40,7 +62,7 @@ const AdminSidebar = () => {
         <aside className="fixed inset-y-0 left-0 w-72 bg-slate-950 border-r border-slate-800/60 z-50 flex flex-col shadow-[20px_0_40px_-20px_rgba(0,0,0,0.5)]">
             {/* Header */}
             <div className="p-8 pb-10">
-                <div className="flex items-center gap-4 group">
+                <Link to="/admin/profile" className="flex items-center gap-4 group cursor-pointer">
                     <div className="relative">
                         <div className="w-12 h-12 bg-gradient-to-tr from-indigo-600 to-violet-600 rounded-2xl flex items-center justify-center text-white font-black text-xl shadow-lg shadow-indigo-500/20 group-hover:rotate-12 transition-transform duration-300">
                             B
@@ -48,8 +70,8 @@ const AdminSidebar = () => {
                         <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 border-2 border-[#020617] rounded-full shadow-lg" />
                     </div>
                     <div>
-                        <h1 className="text-xl font-bold tracking-tight text-white leading-none mb-1">
-                            Booking<span className="text-indigo-500">Flow</span>
+                        <h1 className="text-xl font-bold tracking-tight text-white leading-none mb-1 group-hover:text-indigo-400 transition-colors">
+                            Booking<span className="text-indigo-500 group-hover:text-white">Flow</span>
                         </h1>
                         <div className="flex items-center gap-1.5">
                             <CircleDot className="w-2.5 h-2.5 text-emerald-500 animate-pulse" />
@@ -58,7 +80,7 @@ const AdminSidebar = () => {
                             </span>
                         </div>
                     </div>
-                </div>
+                </Link>
             </div>
 
             {/* Navigation */}
@@ -133,7 +155,7 @@ const AdminSidebar = () => {
                         </div>
                         <div className="min-w-0">
                             <p className="text-[13px] font-bold text-white truncate">
-                                {user?.email?.split("@")[0]}
+                                {userName || "Admin"}
                             </p>
                             <p className="text-[10px] font-bold text-indigo-400 uppercase tracking-wider">
                                 Administrator
@@ -141,13 +163,22 @@ const AdminSidebar = () => {
                         </div>
                     </div>
 
-                    <button
-                        onClick={handleLogout}
-                        className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white rounded-2xl text-xs font-bold transition-all duration-300 border border-red-500/20 group"
-                    >
-                        <LogOut className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                        Sign Out System
-                    </button>
+                    <div className="flex gap-2">
+                        <Link
+                            to="/admin/profile"
+                            className="flex-shrink-0 flex items-center justify-center w-12 h-12 bg-slate-800/50 hover:bg-slate-800 text-slate-400 hover:text-white rounded-2xl transition-all duration-300 border border-slate-700/50 group active:scale-95"
+                            title="Admin Settings"
+                        >
+                            <Settings className="w-5 h-5 group-hover:rotate-90 transition-transform duration-500" />
+                        </Link>
+                        <button
+                            onClick={handleLogout}
+                            className="flex-1 flex items-center justify-center gap-2 py-3 px-4 bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white rounded-2xl text-xs font-bold transition-all duration-300 border border-red-500/20 group active:scale-95"
+                        >
+                            <LogOut className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                            Sign Out
+                        </button>
+                    </div>
                 </div>
             </div>
         </aside>
