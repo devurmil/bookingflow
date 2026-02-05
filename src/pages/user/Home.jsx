@@ -221,6 +221,7 @@ const Home = () => {
                                                                 placeholderText="Choose date..."
                                                                 minDate={new Date()}
                                                                 className="w-full bg-slate-950/50 border border-white/5 focus:border-indigo-500/50 rounded-2xl p-4 pl-12 text-sm text-white transition-all outline-none"
+                                                                calendarClassName="glass-card !border-white/10 !rounded-[2rem] shadow-2xl"
                                                             />
                                                         </div>
                                                     </div>
@@ -238,6 +239,7 @@ const Home = () => {
                                                                 dateFormat="h:mm aa"
                                                                 placeholderText="Choose time..."
                                                                 className="w-full bg-slate-950/50 border border-white/5 focus:border-indigo-500/50 rounded-2xl p-4 pl-12 text-sm text-white transition-all outline-none"
+                                                                calendarClassName="glass-card !border-white/10 !rounded-[2rem] shadow-2xl"
                                                             />
                                                         </div>
                                                     </div>
