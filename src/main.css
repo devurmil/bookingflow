@@ -66,7 +66,7 @@ body {
 }
 
 .react-datepicker__day {
-    @apply !text-slate-300 !text-sm !w-8 !h-8 !flex !items-center !justify-center !rounded-xl !transition-all hover: !bg-indigo-500/20 hover: !text-white;
+    @apply !text-slate-300 !text-sm !w-8 !h-8 !flex !items-center !justify-center !rounded-xl !transition-all hover:!bg-indigo-500/20 hover:!text-white;
 }
 
 .react-datepicker__day--selected {
@@ -78,7 +78,7 @@ body {
 }
 
 .react-datepicker__day--disabled {
-    @apply !text-slate-700 hover: !bg-transparent;
+    @apply !text-slate-700 hover:!bg-transparent;
 }
 
 .react-datepicker__time-container {
@@ -90,11 +90,15 @@ body {
 }
 
 .react-datepicker__time-list-item {
-    @apply !bg-transparent !text-slate-400 !text-sm !font-bold !transition-all hover: !bg-indigo-500/10 hover: !text-white !h-14 !flex !items-center !justify-center;
+    @apply !bg-transparent !text-slate-400 !text-sm !font-bold !transition-all hover:!bg-indigo-500/10 hover:!text-white !h-14 !flex !items-center !justify-center;
 }
 
 .react-datepicker__time-list-item--selected {
     @apply !bg-indigo-600 !text-white !font-black !shadow-lg !shadow-indigo-600/20 !rounded-lg;
+}
+
+.react-datepicker__time-list-item:hover {
+    @apply !bg-indigo-500/10 !text-white;
 }
 
 .react-datepicker__navigation {
