@@ -4,7 +4,7 @@ import { useAuth } from "../../app/context/AuthContext";
 import { useEffect, useState } from "react";
 import UserLayout from "../../components/layout/UserLayout";
 import { motion, AnimatePresence } from "framer-motion";
-import { Calendar, Clock, CheckCircle2, XCircle, Hourglass, Search, RefreshCw, Archive } from "lucide-react";
+import { Calendar, Clock, CheckCircle2, XCircle, Hourglass, Search, RefreshCw, Archive, MessageSquare, Info } from "lucide-react";
 
 const MyAppointments = () => {
     const { user } = useAuth();
@@ -126,18 +126,40 @@ const MyAppointments = () => {
                                         </span>
                                     </div>
 
-                                    <h3 className="text-xl font-bold text-white mb-2 tracking-tight group-hover:text-indigo-400 transition-colors">
+                                    <h3 className="text-xl font-bold text-white mb-4 tracking-tight group-hover:text-indigo-400 transition-colors uppercase">
                                         {a.serviceName || "Service Session"}
                                     </h3>
 
-                                    <div className="mt-auto pt-6 border-t border-slate-800/40 space-y-3">
-                                        <div className="flex items-center gap-3 text-[11px] font-bold text-slate-500">
-                                            <Calendar className="w-3.5 h-3.5 text-indigo-500/50" />
-                                            Request Sent: {a.createdAt?.toDate ? a.createdAt.toDate().toLocaleDateString() : 'Pending Sync'}
+                                    {/* Booking Schedule */}
+                                    <div className="bg-slate-950/40 rounded-2xl p-4 border border-white/5 space-y-2.5 mb-5">
+                                        <div className="flex items-center gap-3 text-[11px] font-bold text-slate-300">
+                                            <Calendar className="w-3.5 h-3.5 text-indigo-500" />
+                                            Schedule: <span className="text-white ml-auto">{a.booking?.date || "TBD"}</span>
                                         </div>
-                                        <div className="flex items-center gap-3 text-[11px] font-bold text-slate-500">
-                                            <Clock className="w-3.5 h-3.5 text-indigo-500/50" />
-                                            Transmission: {a.createdAt?.toDate ? a.createdAt.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '...'}
+                                        <div className="flex items-center gap-3 text-[11px] font-bold text-slate-300">
+                                            <Clock className="w-3.5 h-3.5 text-indigo-500" />
+                                            Start Time: <span className="text-white ml-auto">{a.booking?.time || "TBD"}</span>
+                                        </div>
+                                    </div>
+
+                                    {/* User Instructions */}
+                                    {a.booking?.instructions && (
+                                        <div className="mb-6 p-4 bg-indigo-500/5 rounded-2xl border border-indigo-500/10 flex items-start gap-3">
+                                            <MessageSquare className="w-3.5 h-3.5 text-indigo-400 mt-0.5 flex-shrink-0" />
+                                            <p className="text-[10px] text-slate-400 font-medium leading-relaxed italic">
+                                                "{a.booking.instructions}"
+                                            </p>
+                                        </div>
+                                    )}
+
+                                    <div className="mt-auto pt-5 border-t border-slate-800/40 grid grid-cols-2 gap-2 opacity-60">
+                                        <div className="flex items-center gap-2 text-[9px] font-black uppercase tracking-tighter text-slate-500">
+                                            <Info className="w-3 h-3 text-slate-600" />
+                                            Requested: {a.createdAt?.toDate ? a.createdAt.toDate().toLocaleDateString() : '...'}
+                                        </div>
+                                        <div className="flex items-center gap-2 text-[9px] font-black uppercase tracking-tighter text-slate-500 justify-end">
+                                            <Clock className="w-3 h-3 text-slate-600" />
+                                            {a.createdAt?.toDate ? a.createdAt.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '...'}
                                         </div>
                                     </div>
                                 </div>

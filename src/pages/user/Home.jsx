@@ -7,6 +7,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, MapPin, Clock, ArrowRight, ArrowLeft, CheckCircle2, Zap, Calendar, MessageSquare, Info } from "lucide-react";
 import { toast } from "react-toastify";
 import { openRazorpay } from "../../utils/razorpayPayment";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const Home = () => {
     const { user } = useAuth();
@@ -17,8 +19,7 @@ const Home = () => {
     const [selectedService, setSelectedService] = useState(null);
     const [step, setStep] = useState(1);
 
-    const [bookingDate, setBookingDate] = useState("");
-    const [bookingTime, setBookingTime] = useState("");
+    const [bookingDate, setBookingDate] = useState(null);
     const [instructions, setInstructions] = useState("");
 
     const fetchServices = async () => {
@@ -57,8 +58,8 @@ const Home = () => {
                         price: service.price,
 
                         booking: {
-                            date: bookingDate,
-                            time: bookingTime,
+                            date: bookingDate ? bookingDate.toLocaleDateString() : "",
+                            time: bookingDate ? bookingDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "",
                             instructions,
                         },
 
@@ -70,23 +71,21 @@ const Home = () => {
                             mode: "test",
                         },
 
-                        status: "confirmed",
+                        status: "pending",
                         createdAt: Timestamp.now(),
                     });
 
-                    toast.success(`✅ ${service.title} booked successfully!`);
+                    toast.success(`💳 Payment successful! Your booking for ${service.title} is now being moderated.`);
                     setSelectedService(null);
                     setStep(1);
-                    setBookingDate("");
-                    setBookingTime("");
+                    setBookingDate(null);
                     setInstructions("");
                 } catch (e) {
                     console.error(e);
                     toast.error("Payment done, but booking failed.");
                     setSelectedService(null);
                     setStep(1);
-                    setBookingDate("");
-                    setBookingTime("");
+                    setBookingDate(null);
                     setInstructions("");
                 } finally {
                     setLoading(false);
@@ -212,25 +211,32 @@ const Home = () => {
                                             <div className="space-y-6">
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                     <div className="space-y-2">
-                                                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Preferred Date</label>
+                                                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Select Date</label>
                                                         <div className="relative group">
-                                                            <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 group-focus-within:text-indigo-500 transition-colors" />
-                                                            <input
-                                                                type="date"
-                                                                value={bookingDate}
-                                                                onChange={(e) => setBookingDate(e.target.value)}
+                                                            <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 z-10 group-focus-within:text-indigo-500 transition-colors pointer-events-none" />
+                                                            <DatePicker
+                                                                selected={bookingDate}
+                                                                onChange={(date) => setBookingDate(date)}
+                                                                dateFormat="MMMM d, yyyy"
+                                                                placeholderText="Choose date..."
+                                                                minDate={new Date()}
                                                                 className="w-full bg-slate-950/50 border border-white/5 focus:border-indigo-500/50 rounded-2xl p-4 pl-12 text-sm text-white transition-all outline-none"
                                                             />
                                                         </div>
                                                     </div>
                                                     <div className="space-y-2">
-                                                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Start Time</label>
+                                                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Select Time</label>
                                                         <div className="relative group">
-                                                            <Clock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 group-focus-within:text-indigo-500 transition-colors" />
-                                                            <input
-                                                                type="time"
-                                                                value={bookingTime}
-                                                                onChange={(e) => setBookingTime(e.target.value)}
+                                                            <Clock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 z-10 group-focus-within:text-indigo-500 transition-colors pointer-events-none" />
+                                                            <DatePicker
+                                                                selected={bookingDate}
+                                                                onChange={(date) => setBookingDate(date)}
+                                                                showTimeSelect
+                                                                showTimeSelectOnly
+                                                                timeIntervals={15}
+                                                                timeCaption="Time"
+                                                                dateFormat="h:mm aa"
+                                                                placeholderText="Choose time..."
                                                                 className="w-full bg-slate-950/50 border border-white/5 focus:border-indigo-500/50 rounded-2xl p-4 pl-12 text-sm text-white transition-all outline-none"
                                                             />
                                                         </div>
@@ -255,6 +261,8 @@ const Home = () => {
                                                         onClick={() => {
                                                             setSelectedService(null);
                                                             setStep(1);
+                                                            setBookingDate(null);
+                                                            setInstructions("");
                                                         }}
                                                         className="flex-1 py-4 px-6 bg-slate-900 hover:bg-slate-800 text-slate-400 font-black uppercase tracking-widest text-[10px] rounded-2xl transition-all flex items-center justify-center gap-2 border border-white/5"
                                                     >
@@ -262,7 +270,7 @@ const Home = () => {
                                                     </button>
                                                     <button
                                                         onClick={() => {
-                                                            if (!bookingDate || !bookingTime)
+                                                            if (!bookingDate)
                                                                 return toast.error("Please select date & time");
                                                             setStep(2);
                                                         }}
@@ -281,7 +289,9 @@ const Home = () => {
                                                     </div>
                                                     <div className="flex justify-between items-center pb-4 border-b border-white/5">
                                                         <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Schedule</span>
-                                                        <span className="text-sm font-bold text-white">{bookingDate} @ {bookingTime}</span>
+                                                        <span className="text-sm font-bold text-white">
+                                                            {bookingDate?.toLocaleDateString()} @ {bookingDate?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                                        </span>
                                                     </div>
                                                     <div className="flex justify-between items-center">
                                                         <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Investment</span>

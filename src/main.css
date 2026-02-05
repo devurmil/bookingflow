@@ -45,3 +45,72 @@
 body {
     @apply bg-slate-950 text-slate-100 antialiased min-h-screen selection:bg-indigo-500/30;
 }
+
+/* React Datepicker Custom Styles */
+.react-datepicker {
+    @apply !bg-slate-900 !border-white/10 !rounded-[2rem] !p-4 !shadow-2xl !font-sans !text-white !overflow-hidden;
+    backdrop-filter: blur(16px);
+}
+
+.react-datepicker__header {
+    @apply !bg-transparent !border-white/5 !pt-4;
+}
+
+.react-datepicker__current-month,
+.react-datepicker-time__header {
+    @apply !text-white !font-black !uppercase !tracking-widest !text-[10px] !mb-4;
+}
+
+.react-datepicker__day-name {
+    @apply !text-slate-500 !font-bold !text-[10px] !uppercase !w-8;
+}
+
+.react-datepicker__day {
+    @apply !text-slate-300 !text-sm !w-8 !h-8 !flex !items-center !justify-center !rounded-xl !transition-all hover: !bg-indigo-500/20 hover: !text-white;
+}
+
+.react-datepicker__day--selected {
+    @apply !bg-indigo-600 !text-white !font-bold !shadow-lg !shadow-indigo-600/30;
+}
+
+.react-datepicker__day--keyboard-selected {
+    @apply !bg-indigo-600/20 !text-indigo-400;
+}
+
+.react-datepicker__day--disabled {
+    @apply !text-slate-700 hover: !bg-transparent;
+}
+
+.react-datepicker__time-container {
+    @apply !border-white/5 !bg-transparent !w-40;
+}
+
+.react-datepicker__time-box {
+    @apply !rounded-b-[2rem] !w-full;
+}
+
+.react-datepicker__time-list-item {
+    @apply !bg-transparent !text-slate-400 !text-sm !font-bold !transition-all hover: !bg-indigo-500/10 hover: !text-white !h-14 !flex !items-center !justify-center;
+}
+
+.react-datepicker__time-list-item--selected {
+    @apply !bg-indigo-600 !text-white !font-black !shadow-lg !shadow-indigo-600/20 !rounded-lg;
+}
+
+.react-datepicker__navigation {
+    @apply !top-6;
+}
+
+.react-datepicker__navigation-icon::before {
+    @apply !border-slate-500;
+}
+
+.react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle::before,
+.react-datepicker-popper[data-placement^="top"] .react-datepicker__triangle::before {
+    @apply !border-slate-900;
+}
+
+.react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle::after,
+.react-datepicker-popper[data-placement^="top"] .react-datepicker__triangle::after {
+    @apply !border-slate-900;
+}

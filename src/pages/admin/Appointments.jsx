@@ -1,4 +1,4 @@
-import { collection, getDocs, updateDoc, doc } from "firebase/firestore";
+import { collection, getDocs, updateDoc, doc, query, orderBy } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig";
 import { useEffect, useState } from "react";
 import AdminLayout from "../../components/layout/AdminLayout";
@@ -16,7 +16,8 @@ import {
     ArrowRightLeft,
     Check,
     X,
-    RotateCcw
+    RotateCcw,
+    MessageSquare
 } from "lucide-react";
 import { toast } from "react-toastify";
 
@@ -29,7 +30,8 @@ const Appointments = () => {
     const fetchAppointments = async () => {
         setLoading(true);
         try {
-            const snap = await getDocs(collection(db, "appointments"));
+            const q = query(collection(db, "appointments"), orderBy("createdAt", "desc"));
+            const snap = await getDocs(q);
             const list = snap.docs.map(d => ({ id: d.id, ...d.data() }));
             setAppointments(list);
         } catch (error) {
@@ -128,8 +130,8 @@ const Appointments = () => {
                                 key={s}
                                 onClick={() => setFilter(s)}
                                 className={`px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border ${filter === s
-                                        ? "bg-indigo-600 border-indigo-500 text-white shadow-lg shadow-indigo-600/20 scale-105"
-                                        : "bg-slate-900 border-slate-800 text-slate-500 hover:text-slate-300 hover:border-slate-700"
+                                    ? "bg-indigo-600 border-indigo-500 text-white shadow-lg shadow-indigo-600/20 scale-105"
+                                    : "bg-slate-900 border-slate-800 text-slate-500 hover:text-slate-300 hover:border-slate-700"
                                     }`}
                             >
                                 {s}
@@ -170,11 +172,11 @@ const Appointments = () => {
 
                             return (
                                 <motion.div
-                                    layout
                                     key={a.id}
-                                    initial={{ opacity: 0, x: -20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: idx * 0.05 }}
+                                    initial={{ opacity: 0, scale: 0.98 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.98 }}
+                                    transition={{ duration: 0.3 }}
                                     className="group bg-slate-900/40 border border-slate-800/60 p-6 rounded-[2.5rem] flex flex-col lg:flex-row justify-between lg:items-center gap-6 hover:bg-slate-900/60 hover:border-indigo-500/20 transition-all duration-300"
                                 >
                                     <div className="flex items-center gap-6 flex-1 min-w-0">
@@ -197,13 +199,25 @@ const Appointments = () => {
                                                 </div>
                                                 <div className="flex items-center gap-2 text-xs font-bold text-slate-500">
                                                     <Calendar className="w-3.5 h-3.5 text-emerald-400/60" />
-                                                    {a.date || "Unscheduled"}
+                                                    {a.booking?.date || a.date || "Unscheduled"}
+                                                </div>
+                                                <div className="flex items-center gap-2 text-xs font-bold text-slate-500">
+                                                    <Clock className="w-3.5 h-3.5 text-indigo-400/60" />
+                                                    {a.booking?.time || "Time TBD"}
                                                 </div>
                                                 <div className="flex items-center gap-2 text-xs font-bold text-slate-500">
                                                     <User className="w-3.5 h-3.5 text-amber-400/60" />
                                                     ID: {(a.userId || "0000").slice(-4).toUpperCase()}
                                                 </div>
                                             </div>
+                                            {a.booking?.instructions && (
+                                                <div className="mt-3 p-3 bg-slate-950/30 rounded-xl border border-white/5 flex items-start gap-2 max-w-lg">
+                                                    <MessageSquare className="w-3.5 h-3.5 text-slate-600 mt-0.5 flex-shrink-0" />
+                                                    <p className="text-[11px] text-slate-500 font-medium leading-relaxed italic">
+                                                        "{a.booking.instructions}"
+                                                    </p>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
 
