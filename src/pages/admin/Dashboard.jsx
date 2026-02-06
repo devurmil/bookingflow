@@ -131,10 +131,10 @@ const Dashboard = () => {
                     <TrendingUp className="w-4 h-4" />
                     Real-time Metrics
                 </div>
-                <h2 className="text-5xl md:text-6xl font-black text-white tracking-tight mb-6">
-                    Workspace <span className="text-gradient">Intelligence</span>
+                <h2 className="text-5xl md:text-6xl font-black text-slate-900 dark:text-white tracking-tight mb-6">
+                    Workspace <span className="text-gray-400 dark:text-gradient">Intelligence</span>
                 </h2>
-                <p className="text-slate-400 text-lg max-w-2xl font-medium leading-relaxed">
+                <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl font-medium leading-relaxed">
                     Monitor system performance, manage service availability, and oversee user interactions from a centralized command center.
                 </p>
             </motion.div>
@@ -178,7 +178,7 @@ const Dashboard = () => {
                                     {item.label}
                                 </span>
                                 <div className="flex items-baseline gap-2 mb-2">
-                                    <h3 className="text-4xl font-black text-white">
+                                    <h3 className="text-4xl font-black text-slate-900 dark:text-white">
                                         {loading ? "..." : item.value}
                                     </h3>
                                     <span className="text-emerald-500 text-xs font-bold">+12%</span>
@@ -205,7 +205,7 @@ const Dashboard = () => {
                 >
                     <div className="glass-card p-10 rounded-[3rem] h-full">
                         <div className="flex items-center justify-between mb-8">
-                            <h3 className="text-2xl font-bold text-white flex items-center gap-3">
+                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
                                 <Zap className="w-6 h-6 text-amber-400" />
                                 Core Operations
                             </h3>
@@ -220,13 +220,13 @@ const Dashboard = () => {
                                     <Link
                                         key={idx}
                                         to={action.to}
-                                        className="group p-6 rounded-[2rem] bg-slate-900/40 border border-slate-800/60 hover:border-indigo-500/50 hover:bg-indigo-500/5 transition-all duration-500 flex flex-col gap-4"
+                                        className="group p-6 rounded-[2rem] bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/60 hover:border-indigo-500/50 hover:bg-indigo-500/5 transition-all duration-500 flex flex-col gap-4"
                                     >
                                         <div className={`w-12 h-12 rounded-xl bg-${action.color}-500/10 flex items-center justify-center group-hover:bg-indigo-500 group-hover:text-white transition-all duration-500`}>
                                             <Icon className="w-6 h-6" />
                                         </div>
                                         <div>
-                                            <p className="text-white font-bold mb-1 flex items-center gap-2">
+                                            <p className="text-slate-900 dark:text-white font-bold mb-1 flex items-center gap-2">
                                                 {action.label}
                                                 <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 -translate-y-1 translate-x-1 group-hover:translate-x-0 group-hover:translate-y-0 transition-all" />
                                             </p>
@@ -248,7 +248,7 @@ const Dashboard = () => {
                 >
                     <div className="glass-card p-10 rounded-[3rem] h-full border-indigo-500/10">
                         <div className="flex items-center justify-between mb-8">
-                            <h3 className="text-2xl font-bold text-white flex items-center gap-3">
+                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
                                 <ShieldCheck className="w-6 h-6 text-emerald-400" />
                                 System Integrity
                             </h3>
@@ -263,13 +263,13 @@ const Dashboard = () => {
                                 return (
                                     <div
                                         key={i}
-                                        className="flex justify-between items-center p-5 bg-slate-900/40 rounded-2xl border border-slate-800/40 hover:bg-slate-900/60 transition-colors group"
+                                        className="flex justify-between items-center p-5 bg-slate-50 dark:bg-slate-900/40 rounded-2xl border border-slate-200 dark:border-slate-800/40 hover:bg-white dark:hover:bg-slate-900/60 transition-colors group"
                                     >
                                         <div className="flex items-center gap-4">
-                                            <div className="p-2 rounded-lg bg-slate-800/50">
-                                                <Icon className="w-4 h-4 text-slate-400" />
+                                            <div className="p-2 rounded-lg bg-slate-200 dark:bg-slate-800/50">
+                                                <Icon className="w-4 h-4 text-slate-500 dark:text-slate-400" />
                                             </div>
-                                            <span className="text-slate-300 font-bold text-sm tracking-wide">{item.name}</span>
+                                            <span className="text-slate-700 dark:text-slate-300 font-bold text-sm tracking-wide">{item.name}</span>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <div className={`w-1.5 h-1.5 rounded-full bg-${item.color}-400 animate-pulse`} />
@@ -284,8 +284,8 @@ const Dashboard = () => {
 
                         <div className="mt-8 p-6 rounded-2xl bg-indigo-600/10 border border-indigo-500/20 relative overflow-hidden group">
                             <div className="relative z-10">
-                                <p className="text-white font-bold text-sm mb-1 italic">Optimization Recommendation</p>
-                                <p className="text-slate-400 text-[11px] leading-relaxed">Consider indexing the 'appointments' collection for faster query performance.</p>
+                                <p className="text-slate-900 dark:text-white font-bold text-sm mb-1 italic">Optimization Recommendation</p>
+                                <p className="text-slate-600 dark:text-slate-400 text-[11px] leading-relaxed">Consider indexing the 'appointments' collection for faster query performance.</p>
                             </div>
                             <div className="absolute top-0 right-0 p-4 opacity-20 group-hover:scale-125 transition-transform">
                                 <Zap className="w-8 h-8 text-indigo-400" />

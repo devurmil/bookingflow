@@ -13,92 +13,103 @@ import UserHome from "./pages/user/Home";
 import MyAppointments from "./pages/user/MyAppointments";
 import UserProfile from "./pages/user/Profile";
 import AdminProfile from "./pages/admin/Profile";
-import { AuthProvider } from "./app/context/AuthContext";
+import { useTheme } from "./app/context/ThemeContext";
+import { Moon, Sun } from "lucide-react";
 
 function App() {
+  const { theme, toggleTheme } = useTheme();
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/unauthorized" element={<Unauthorized />} />
-          <Route path="/locked" element={<Locked />} />
+    <BrowserRouter>
+      <button
+        onClick={toggleTheme}
+        className="flex items-center justify-center fixed bottom-5 right-5 z-50 w-12 h-12 bg-white dark:bg-slate-800/50 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-amber-500 dark:hover:text-amber-400 rounded-2xl transition-all duration-300 border border-slate-200 dark:border-slate-700/50 group active:scale-95"
+        title="Toggle Theme"
+      >
+        {theme === 'dark' ? (
+          <Sun className="w-5 h-5 group-hover:rotate-90 transition-transform duration-500" />
+        ) : (
+          <Moon className="w-5 h-5 group-hover:-rotate-12 transition-transform duration-500" />
+        )}
+      </button>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/unauthorized" element={<Unauthorized />} />
+        <Route path="/locked" element={<Locked />} />
 
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <UserHome />
-              </ProtectedRoute>
-            }
-          />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <UserHome />
+            </ProtectedRoute>
+          }
+        />
 
-          <Route
-            path="/my-appointments"
-            element={
-              <ProtectedRoute>
-                <MyAppointments />
-              </ProtectedRoute>
-            }
-          />
+        <Route
+          path="/my-appointments"
+          element={
+            <ProtectedRoute>
+              <MyAppointments />
+            </ProtectedRoute>
+          }
+        />
 
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute>
-                <UserProfile />
-              </ProtectedRoute>
-            }
-          />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <UserProfile />
+            </ProtectedRoute>
+          }
+        />
 
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoute role="admin">
-                <AdminDashboard />
-              </ProtectedRoute>
-            }
-          />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute role="admin">
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
 
-          <Route
-            path="/admin/services"
-            element={
-              <ProtectedRoute role="admin">
-                <AdminServices />
-              </ProtectedRoute>
-            }
-          />
+        <Route
+          path="/admin/services"
+          element={
+            <ProtectedRoute role="admin">
+              <AdminServices />
+            </ProtectedRoute>
+          }
+        />
 
-          <Route
-            path="/admin/appointments"
-            element={
-              <ProtectedRoute role="admin">
-                <AdminAppointments />
-              </ProtectedRoute>
-            }
-          />
+        <Route
+          path="/admin/appointments"
+          element={
+            <ProtectedRoute role="admin">
+              <AdminAppointments />
+            </ProtectedRoute>
+          }
+        />
 
-          <Route
-            path="/admin/users"
-            element={
-              <ProtectedRoute role="admin">
-                <AdminUsers />
-              </ProtectedRoute>
-            }
-          />
+        <Route
+          path="/admin/users"
+          element={
+            <ProtectedRoute role="admin">
+              <AdminUsers />
+            </ProtectedRoute>
+          }
+        />
 
-          <Route
-            path="/admin/profile"
-            element={
-              <ProtectedRoute role="admin">
-                <AdminProfile />
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+        <Route
+          path="/admin/profile"
+          element={
+            <ProtectedRoute role="admin">
+              <AdminProfile />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

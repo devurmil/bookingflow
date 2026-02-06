@@ -2,7 +2,7 @@ import AdminSidebar from "./AdminSidebar";
 
 const AdminLayout = ({ children }) => {
     return (
-        <div className="min-h-screen bg-slate-950 text-white flex overflow-x-hidden">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white flex overflow-x-hidden">
 
             {/* Fixed Sidebar */}
             <AdminSidebar />

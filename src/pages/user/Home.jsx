@@ -109,10 +109,10 @@ const Home = () => {
                     <Sparkles className="w-4 h-4" />
                     Premium Experience
                 </div>
-                <h1 className="text-5xl md:text-6xl font-black text-white tracking-tight mb-6">
-                    Professional <span className="text-gradient">Services</span>
+                <h1 className="text-5xl md:text-6xl font-black text-slate-900 dark:text-white tracking-tight mb-6">
+                    Professional <span className="text-gray-700 dark:text-gray-300">Services</span>
                 </h1>
-                <p className="text-slate-400 text-lg max-w-2xl mx-auto font-medium leading-relaxed">
+                <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto font-medium leading-relaxed">
                     Select from our curated list of high-performance services.
                     Each session is handled by top-tier professionals in the ecosystem.
                 </p>
@@ -133,18 +133,18 @@ const Home = () => {
                             transition={{ delay: idx * 0.1 }}
                             className="group relative"
                         >
-                            <div className="glass-card p-8 rounded-[2.5rem] h-full flex flex-col border-white/5 hover:border-indigo-500/30 transition-all duration-500 shadow-2xl">
+                            <div className="bg-white dark:bg-slate-900/80 p-8 rounded-[2.5rem] h-full flex flex-col border border-slate-200 dark:border-white/5 hover:border-indigo-500/30 dark:hover:border-indigo-500/30 transition-all duration-500 shadow-xl dark:shadow-2xl">
                                 <div className="flex items-start justify-between mb-8">
-                                    <div className="w-14 h-14 bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-400 group-hover:scale-110 transition-transform">
+                                    <div className="w-14 h-14 bg-slate-50 dark:bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-500 dark:text-indigo-400 group-hover:scale-110 transition-transform">
                                         <Zap className="w-7 h-7" />
                                     </div>
                                     <div className="flex flex-col items-end">
-                                        <span className="text-2xl font-black text-white">${s.price}</span>
-                                        <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Starting Rate</span>
+                                        <span className="text-2xl font-black text-slate-900 dark:text-white">${s.price}</span>
+                                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Starting Rate</span>
                                     </div>
                                 </div>
 
-                                <h3 className="text-2xl font-bold text-white mb-3 tracking-tight">{s.title}</h3>
+                                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">{s.title}</h3>
                                 <p className="text-slate-400 text-sm font-medium leading-relaxed mb-6">
                                     {s.description || "High-performance service optimized for maximum results within our integrated workflow ecosystem."}
                                 </p>

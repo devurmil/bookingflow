@@ -94,13 +94,13 @@ const Appointments = () => {
             {/* Header section */}
             <div className="flex flex-col items-center text-center mb-16">
                 <div>
-                    <h2 className="text-5xl font-black text-white mb-4">Booking <span className="text-indigo-500">Pipeline</span></h2>
-                    <p className="text-slate-400 font-medium max-w-2xl mx-auto">Monitor and moderate incoming service requests meticulously from this centralized ledger.</p>
+                    <h2 className="text-5xl font-black text-slate-900 dark:text-white mb-4">Booking <span className="text-indigo-500">Pipeline</span></h2>
+                    <p className="text-slate-600 dark:text-slate-400 font-medium max-w-2xl mx-auto">Monitor and moderate incoming service requests meticulously from this centralized ledger.</p>
                 </div>
                 <div className="mt-8">
                     <button
                         onClick={fetchAppointments}
-                        className="p-4 bg-slate-900 text-slate-400 rounded-2xl hover:bg-slate-800 hover:text-white transition-all border border-slate-800 shadow-2xl flex items-center gap-2 font-bold text-xs uppercase tracking-widest"
+                        className="p-4 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 rounded-2xl hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all border border-slate-200 dark:border-slate-800 shadow-2xl flex items-center gap-2 font-bold text-xs uppercase tracking-widest"
                     >
                         <RefreshCw className={`w-5 h-5 ${loading ? 'animate-spin text-indigo-400' : ''}`} />
                         Refresh Registry
@@ -109,7 +109,7 @@ const Appointments = () => {
             </div>
 
             {/* Advanced Filtering */}
-            <div className="glass-card p-8 rounded-[3rem] border border-slate-800/60 mb-16 flex flex-col items-center gap-8 shadow-2xl">
+            <div className="glass-card p-8 rounded-[3rem] border border-slate-200 dark:border-slate-800/60 mb-16 flex flex-col items-center gap-8 shadow-2xl">
                 <div className="flex flex-col lg:flex-row items-center gap-6 w-full justify-center">
                     <div className="relative w-full lg:w-96 group">
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 group-focus-within:text-indigo-400 transition-colors" />
@@ -117,7 +117,7 @@ const Appointments = () => {
                             placeholder="Filter by service or client..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full bg-slate-950/40 border border-slate-800 focus:border-indigo-500/50 py-4 pl-12 pr-6 rounded-2xl text-sm text-white outline-none transition-all placeholder:text-slate-600 shadow-inner"
+                            className="w-full bg-slate-50 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800 focus:border-indigo-500/50 py-4 pl-12 pr-6 rounded-2xl text-sm text-slate-900 dark:text-white outline-none transition-all placeholder:text-slate-500 dark:placeholder:text-slate-600 shadow-inner"
                         />
                     </div>
 
@@ -131,7 +131,7 @@ const Appointments = () => {
                                 onClick={() => setFilter(s)}
                                 className={`px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border ${filter === s
                                     ? "bg-indigo-600 border-indigo-500 text-white shadow-lg shadow-indigo-600/20 scale-105"
-                                    : "bg-slate-900 border-slate-800 text-slate-500 hover:text-slate-300 hover:border-slate-700"
+                                    : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700"
                                     }`}
                             >
                                 {s}
@@ -159,10 +159,10 @@ const Appointments = () => {
                             animate={{ opacity: 1, scale: 1 }}
                             className="text-center py-24 glass-card border-dashed p-10 rounded-[3rem] border-slate-800"
                         >
-                            <div className="w-16 h-16 bg-slate-900/50 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                                <Calendar className="w-8 h-8 text-slate-700" />
+                            <div className="w-16 h-16 bg-slate-100 dark:bg-slate-900/50 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                                <Calendar className="w-8 h-8 text-slate-400 dark:text-slate-700" />
                             </div>
-                            <h3 className="text-lg font-bold text-white mb-1">Queue is empty</h3>
+                            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1">Queue is empty</h3>
                             <p className="text-slate-500 text-sm font-medium">No appointments match your current filter parameters.</p>
                         </motion.div>
                     ) : (
@@ -177,7 +177,7 @@ const Appointments = () => {
                                     animate={{ opacity: 1, scale: 1 }}
                                     exit={{ opacity: 0, scale: 0.98 }}
                                     transition={{ duration: 0.3 }}
-                                    className="group bg-slate-900/40 border border-slate-800/60 p-6 rounded-[2.5rem] flex flex-col lg:flex-row justify-between lg:items-center gap-6 hover:bg-slate-900/60 hover:border-indigo-500/20 transition-all duration-300"
+                                    className="group bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800/60 p-6 rounded-[2.5rem] flex flex-col lg:flex-row justify-between lg:items-center gap-6 hover:bg-slate-50 dark:hover:bg-slate-900/60 hover:border-indigo-500/20 transition-all duration-300"
                                 >
                                     <div className="flex items-center gap-6 flex-1 min-w-0">
                                         <div className={`w-14 h-14 rounded-[1.25rem] ${statusStyle.bg} flex items-center justify-center flex-shrink-0 border ${statusStyle.border} group-hover:scale-105 transition-transform`}>
@@ -185,7 +185,7 @@ const Appointments = () => {
                                         </div>
                                         <div className="min-w-0 flex-1">
                                             <div className="flex items-center gap-3 mb-1.5 overflow-hidden">
-                                                <h4 className="text-[17px] font-bold text-white truncate group-hover:text-indigo-300 transition-colors uppercase tracking-tight">
+                                                <h4 className="text-[17px] font-bold text-slate-900 dark:text-white truncate group-hover:text-indigo-500 dark:group-hover:text-indigo-300 transition-colors uppercase tracking-tight">
                                                     {a.serviceName || "Legacy Request"}
                                                 </h4>
                                                 <span className={`px-2.5 py-1 rounded-lg text-[9px] font-black uppercase border tracking-tighter ${statusStyle.bg} ${statusStyle.text} ${statusStyle.border}`}>
@@ -211,8 +211,8 @@ const Appointments = () => {
                                                 </div>
                                             </div>
                                             {a.booking?.instructions && (
-                                                <div className="mt-3 p-3 bg-slate-950/30 rounded-xl border border-white/5 flex items-start gap-2 max-w-lg">
-                                                    <MessageSquare className="w-3.5 h-3.5 text-slate-600 mt-0.5 flex-shrink-0" />
+                                                <div className="mt-3 p-3 bg-slate-50 dark:bg-slate-950/30 rounded-xl border border-slate-200 dark:border-white/5 flex items-start gap-2 max-w-lg">
+                                                    <MessageSquare className="w-3.5 h-3.5 text-slate-400 dark:text-slate-600 mt-0.5 flex-shrink-0" />
                                                     <p className="text-[11px] text-slate-500 font-medium leading-relaxed italic">
                                                         "{a.booking.instructions}"
                                                     </p>
@@ -242,7 +242,7 @@ const Appointments = () => {
                                         ) : (
                                             <button
                                                 onClick={() => updateStatus(a.id, "pending")}
-                                                className="w-full lg:w-auto flex items-center justify-center gap-2 px-6 py-3 bg-slate-800/80 text-slate-400 hover:text-white hover:bg-slate-700 rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all active:scale-[0.95] border border-slate-700/50 group/btn"
+                                                className="w-full lg:w-auto flex items-center justify-center gap-2 px-6 py-3 bg-slate-100 dark:bg-slate-800/80 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-slate-700 rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all active:scale-[0.95] border border-slate-200 dark:border-slate-700/50 group/btn"
                                             >
                                                 <RotateCcw className="w-4 h-4 group-hover/btn:rotate-[-120deg] transition-transform" />
                                                 Reset Status

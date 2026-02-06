@@ -108,7 +108,7 @@ const UserProfile = () => {
     };
 
     return (
-        <div className="min-h-screen bg-slate-950 text-white selection:bg-indigo-500/30">
+        <div className="min-h-screen bg-gray-100 dark:bg-slate-950 text-white selection:bg-indigo-500/30">
             <Navbar />
 
             <main className="max-w-5xl mx-auto px-6 py-12">
@@ -120,7 +120,7 @@ const UserProfile = () => {
                         animate={{ opacity: 1, x: 0 }}
                         className="lg:col-span-1 space-y-6"
                     >
-                        <div className="glass-card p-8 rounded-[2.5rem] border-white/5 relative overflow-hidden group">
+                        <div className="dark:bg-gray-900 bg-gray-200 p-8 rounded-[2.5rem] border-white/5 relative overflow-hidden group">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-600/10 blur-3xl -mr-16 -mt-16 group-hover:bg-indigo-500/20 transition-colors" />
 
                             <div className="relative">
@@ -128,10 +128,10 @@ const UserProfile = () => {
                                     {user?.email?.charAt(0).toUpperCase()}
                                 </div>
 
-                                <h2 className="text-2xl font-black tracking-tight mb-1 truncate">
+                                <h2 className="text-2xl font-black text-gray-800 dark:text-white tracking-tight mb-1 truncate">
                                     {formData.name || user?.displayName || user?.email?.split('@')[0]}
                                 </h2>
-                                <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-6 flex items-center gap-2">
+                                <p className="text-xs font-bold text-slate-500 dark:text-gray-400 uppercase tracking-widest mb-6 flex items-center gap-2">
                                     <Shield className="w-3.5 h-3.5 text-indigo-500" />
                                     {role === 'admin' ? 'Administrator' : 'Verified Client'}
                                 </p>
@@ -139,7 +139,7 @@ const UserProfile = () => {
                                 <div className="space-y-4 pt-6 border-t border-white/5">
                                     <div className="flex items-center justify-between">
                                         <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Bookings</span>
-                                        <span className="text-sm font-black text-white">{stats.totalOrders}</span>
+                                        <span className="text-sm font-black text-gray-800 dark:text-white">{stats.totalOrders}</span>
                                     </div>
                                     <div className="flex items-center justify-between">
                                         <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Status</span>
@@ -154,7 +154,7 @@ const UserProfile = () => {
 
                         <button
                             onClick={handleLogout}
-                            className="w-full glass-card p-6 rounded-[2rem] border-white/5 flex items-center justify-between text-rose-500 hover:bg-rose-500/10 transition-all group active:scale-95"
+                            className="w-full bg-rose-500/10 dark:bg-rose-500/20 p-6 rounded-[2rem] border-white/5 flex items-center justify-between text-rose-500 hover:bg-rose-500/10 transition-all group active:scale-95"
                         >
                             <span className="text-xs font-black uppercase tracking-widest">Sign Out System</span>
                             <LogOut className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -167,54 +167,54 @@ const UserProfile = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.1 }}
-                            className="glass-card p-10 rounded-[3rem] border-white/5"
+                            className="dark:bg-gray-900 bg-gray-200 p-10 rounded-[3rem] border-white/5"
                         >
                             <div className="flex items-center gap-4 mb-8">
                                 <div className="w-12 h-12 bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-400">
-                                    <Settings className="w-6 h-6" />
+                                    <Settings className="w-6 h-6 text-indigo-800 dark:text-indigo-400" />
                                 </div>
-                                <h3 className="text-xl font-black tracking-tight">Account Settings</h3>
+                                <h3 className="text-xl font-black text-gray-800 dark:text-white tracking-tight">Account Settings</h3>
                             </div>
 
                             <div className="space-y-6">
                                 <div className="group">
-                                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1 mb-2 block">Registered Email</label>
+                                    <label className="text-[10px] font-black text-gray-800 dark:text-slate-500 uppercase tracking-widest ml-1 mb-2 block">Registered Email</label>
                                     <div className="relative">
-                                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 group-focus-within:text-indigo-500 transition-colors" />
+                                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-900 dark:text-slate-500 group-focus-within:text-indigo-500 transition-colors" />
                                         <input
                                             type="text"
                                             readOnly
                                             value={user?.email || ""}
-                                            className="w-full bg-slate-950/50 border border-white/5 rounded-2xl p-4 pl-12 text-sm text-slate-300 outline-none"
+                                            className="w-full dark:bg-slate-950/50 bg-slate-400/50 border border-white/5 rounded-2xl p-4 pl-12 text-sm dark:text-slate-300 text-slate-900 outline-none"
                                         />
                                     </div>
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
-                                    <div className="p-6 bg-slate-900/40 border border-white/5 rounded-[2rem] space-y-4">
-                                        <div className="w-10 h-10 bg-indigo-500/10 rounded-xl flex items-center justify-center text-indigo-400 mb-2">
+                                    <div className="p-6 dark:bg-slate-900/40 bg-slate-400/50 border border-white/5 rounded-[2rem] space-y-4">
+                                        <div className="w-10 h-10 dark:bg-indigo-500/10 bg-indigo-500/30 rounded-xl flex items-center justify-center dark:text-indigo-400 text-indigo-900 mb-2">
                                             <User className="w-5 h-5" />
                                         </div>
-                                        <h4 className="text-sm font-black text-white">Identity Update</h4>
+                                        <h4 className="text-sm font-black dark:text-white text-slate-900">Identity Update</h4>
                                         <div className="space-y-3">
                                             <div className="relative group">
-                                                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 group-focus-within:text-indigo-400 transition-colors" />
+                                                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 dark:text-slate-500 text-slate-900 group-focus-within:text-indigo-400 transition-colors" />
                                                 <input
                                                     type="text"
                                                     placeholder="Verification Name"
                                                     value={formData.name}
                                                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                                    className="w-full bg-slate-950/50 border border-white/5 focus:border-indigo-400/30 rounded-xl p-3 pl-12 text-xs text-white outline-none transition-all"
+                                                    className="w-full dark:bg-slate-950/50 bg-slate-400/50 border border-white/5 focus:border-indigo-400/30 rounded-xl p-3 pl-12 text-xs dark:text-white text-slate-900 outline-none transition-all"
                                                 />
                                             </div>
                                             <div className="relative group">
-                                                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 group-focus-within:text-indigo-400 transition-colors" />
+                                                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 dark:text-slate-500 text-slate-900 group-focus-within:text-indigo-400 transition-colors" />
                                                 <input
                                                     type="password"
                                                     placeholder="New Security Key (Optional)"
                                                     value={formData.newPassword}
                                                     onChange={(e) => setFormData({ ...formData, newPassword: e.target.value })}
-                                                    className="w-full bg-slate-950/50 border border-white/5 focus:border-indigo-400/30 rounded-xl p-3 pl-12 text-xs text-white outline-none transition-all"
+                                                    className="w-full dark:bg-slate-950/50 bg-slate-400/50 border border-white/5 focus:border-indigo-400/30 rounded-xl p-3 pl-12 text-xs dark:text-white text-slate-900 outline-none transition-all"
                                                 />
                                             </div>
                                         </div>
@@ -228,15 +228,15 @@ const UserProfile = () => {
                                         </button>
                                     </div>
 
-                                    <div className="p-6 bg-slate-900/40 border border-white/5 rounded-[2rem] space-y-3">
-                                        <div className="w-10 h-10 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-400 mb-2">
+                                    <div className="p-6 dark:bg-slate-900/40 bg-slate-400/50 border border-white/5 rounded-[2rem] space-y-3">
+                                        <div className="w-10 h-10 dark:bg-emerald-500/10 bg-emerald-500/30 rounded-xl flex items-center justify-center dark:text-emerald-400 text-emerald-900 mb-2">
                                             <Calendar className="w-5 h-5" />
                                         </div>
-                                        <h4 className="text-sm font-black text-white">Booking History</h4>
+                                        <h4 className="text-sm font-black dark:text-white text-slate-900">Booking History</h4>
                                         <p className="text-[11px] font-medium text-slate-500 leading-relaxed mb-4">View and manage all your past and upcoming sessions.</p>
                                         <button
                                             onClick={() => navigate('/my-appointments')}
-                                            className="text-[10px] font-black text-emerald-400 uppercase tracking-widest flex items-center gap-2 hover:text-emerald-300 transition-colors"
+                                            className="text-[10px] font-black dark:text-emerald-400 text-emerald-900 uppercase tracking-widest flex items-center gap-2 hover:text-emerald-300 transition-colors"
                                         >
                                             View Logs <ExternalLink className="w-3 h-3" />
                                         </button>

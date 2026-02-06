@@ -145,8 +145,8 @@ const Services = () => {
             {/* Header section */}
             <div className="flex flex-col items-center text-center mb-16">
                 <div>
-                    <h2 className="text-5xl font-black text-white mb-4">Service <span className="text-indigo-500">Catalog</span></h2>
-                    <p className="text-slate-400 font-medium max-w-2xl mx-auto">Configure and manage your service offerings and availability meticulously from this command center.</p>
+                    <h2 className="text-5xl font-black text-slate-900 dark:text-white mb-4">Service <span className="text-indigo-500">Catalog</span></h2>
+                    <p className="text-slate-600 dark:text-slate-400 font-medium max-w-2xl mx-auto">Configure and manage your service offerings and availability meticulously from this command center.</p>
                 </div>
             </div>
 
@@ -158,12 +158,12 @@ const Services = () => {
                         placeholder="Find services..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="bg-slate-900/50 border border-slate-800 focus:border-indigo-500/50 py-4 pl-12 pr-6 rounded-2xl text-sm text-white outline-none w-full transition-all focus:bg-slate-900 shadow-xl"
+                        className="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 focus:border-indigo-500/50 py-4 pl-12 pr-6 rounded-2xl text-sm text-slate-900 dark:text-white outline-none w-full transition-all focus:bg-slate-50 dark:focus:bg-slate-900 shadow-xl"
                     />
                 </div>
                 <button
                     onClick={fetchServices}
-                    className="p-4 bg-slate-900 text-slate-400 rounded-2xl hover:bg-slate-800 hover:text-white transition-all border border-slate-800 shadow-xl flex items-center gap-2 font-bold text-xs uppercase tracking-widest"
+                    className="p-4 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 rounded-2xl hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all border border-slate-200 dark:border-slate-800 shadow-xl flex items-center gap-2 font-bold text-xs uppercase tracking-widest"
                     title="Sync Database"
                 >
                     <RefreshCw className={`w-5 h-5 ${loading ? 'animate-spin text-indigo-400' : ''}`} />
@@ -178,14 +178,14 @@ const Services = () => {
                         <div className="flex items-center justify-between mb-8">
                             <div className="flex items-center gap-3">
                                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${isEditing ? 'bg-amber-500/10' : 'bg-indigo-500/10'}`}>
-                                    {isEditing ? <Edit2 className="w-5 h-5 text-amber-400" /> : <Plus className="w-5 h-5 text-indigo-400" />}
+                                    {isEditing ? <Edit2 className="w-5 h-5 text-amber-500 dark:text-amber-400" /> : <Plus className="w-5 h-5 text-indigo-500 dark:text-indigo-400" />}
                                 </div>
-                                <h3 className="text-xl font-bold text-white tracking-tight">{isEditing ? 'Edit Service' : 'Add Service'}</h3>
+                                <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">{isEditing ? 'Edit Service' : 'Add Service'}</h3>
                             </div>
                             {isEditing && (
                                 <button
                                     onClick={cancelEdit}
-                                    className="p-2 bg-slate-900 text-slate-500 hover:text-white rounded-lg border border-slate-800 transition-all"
+                                    className="p-2 bg-slate-100 dark:bg-slate-900 text-slate-500 hover:text-slate-900 dark:hover:text-white rounded-lg border border-slate-200 dark:border-slate-800 transition-all"
                                 >
                                     <X className="w-4 h-4" />
                                 </button>
@@ -202,7 +202,7 @@ const Services = () => {
                                     value={formData.title}
                                     onChange={handleInputChange}
                                     placeholder="e.g. Executive Strategy Session"
-                                    className="w-full bg-slate-950/50 border border-slate-800 focus:border-indigo-500/50 p-4 rounded-2xl text-white text-sm outline-none transition-all placeholder:text-slate-600"
+                                    className="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 focus:border-indigo-500/50 p-4 rounded-2xl text-slate-900 dark:text-white text-sm outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-600"
                                 />
                             </div>
 
@@ -217,7 +217,7 @@ const Services = () => {
                                         value={formData.price}
                                         onChange={handleInputChange}
                                         placeholder="0.00"
-                                        className="w-full bg-slate-950/50 border border-slate-800 focus:border-indigo-500/50 p-4 rounded-2xl text-white text-sm outline-none transition-all placeholder:text-slate-600"
+                                        className="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 focus:border-indigo-500/50 p-4 rounded-2xl text-slate-900 dark:text-white text-sm outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-600"
                                     />
                                 </div>
                                 <div className="space-y-2">
@@ -229,7 +229,7 @@ const Services = () => {
                                         value={formData.location}
                                         onChange={handleInputChange}
                                         placeholder="Remote|OnSite"
-                                        className="w-full bg-slate-950/50 border border-slate-800 focus:border-indigo-500/50 p-4 rounded-2xl text-white text-sm outline-none transition-all placeholder:text-slate-600"
+                                        className="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 focus:border-indigo-500/50 p-4 rounded-2xl text-slate-900 dark:text-white text-sm outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-600"
                                     />
                                 </div>
                             </div>
@@ -242,10 +242,10 @@ const Services = () => {
                                     name="category"
                                     value={formData.category}
                                     onChange={handleInputChange}
-                                    className="w-full bg-slate-950/50 border border-slate-800 p-4 rounded-2xl text-white outline-none focus:border-indigo-500/50 text-sm transition-all cursor-pointer appearance-none"
+                                    className="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 p-4 rounded-2xl text-slate-900 dark:text-white outline-none focus:border-indigo-500/50 text-sm transition-all cursor-pointer appearance-none"
                                 >
                                     {["General", "Consulting", "Maintenance", "Design", "Technical"].map(cat => (
-                                        <option key={cat} value={cat} className="bg-slate-900">{cat}</option>
+                                        <option key={cat} value={cat} className="bg-white dark:bg-slate-900">{cat}</option>
                                     ))}
                                 </select>
                             </div>
@@ -259,7 +259,7 @@ const Services = () => {
                                     value={formData.description}
                                     onChange={handleInputChange}
                                     placeholder="Highlight the key benefits..."
-                                    className="w-full bg-slate-950/50 border border-slate-800 p-4 rounded-2xl text-white text-sm focus:border-indigo-500/50 outline-none transition-all h-32 resize-none placeholder:text-slate-600"
+                                    className="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 p-4 rounded-2xl text-slate-900 dark:text-white text-sm focus:border-indigo-500/50 outline-none transition-all h-32 resize-none placeholder:text-slate-400 dark:placeholder:text-slate-600"
                                 />
                             </div>
 
@@ -292,10 +292,10 @@ const Services = () => {
                                 animate={{ opacity: 1, scale: 1 }}
                                 className="text-center py-24 glass-card border-dashed p-10 rounded-[3rem] border-slate-800"
                             >
-                                <div className="w-20 h-20 bg-slate-900/50 rounded-3xl flex items-center justify-center mx-auto mb-6">
-                                    <Tag className="w-10 h-10 text-slate-700" />
+                                <div className="w-20 h-20 bg-slate-100 dark:bg-slate-900/50 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                                    <Tag className="w-10 h-10 text-slate-400 dark:text-slate-700" />
                                 </div>
-                                <h3 className="text-xl font-bold text-white mb-2">No results found</h3>
+                                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">No results found</h3>
                                 <p className="text-slate-500 font-medium italic">Adjust your filters or add a new service to get started.</p>
                             </motion.div>
                         ) : (
@@ -313,7 +313,7 @@ const Services = () => {
                                                 <span className="px-3 py-1 bg-indigo-500/10 text-indigo-400 text-[10px] font-black uppercase tracking-widest rounded-full border border-indigo-500/10 w-fit">
                                                     {s.category}
                                                 </span>
-                                                <h4 className="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors mt-2">{s.title}</h4>
+                                                <h4 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors mt-2">{s.title}</h4>
                                             </div>
                                             <div className="flex gap-2">
                                                 <button
@@ -333,7 +333,7 @@ const Services = () => {
                                             </div>
                                         </div>
 
-                                        <p className="text-slate-400 text-sm leading-relaxed mb-8 line-clamp-3">
+                                        <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-8 line-clamp-3">
                                             {s.description || "No description provided for this catalog entry."}
                                         </p>
 
@@ -344,8 +344,8 @@ const Services = () => {
                                             </div>
                                             <div className="flex flex-col items-end">
                                                 <span className="text-[10px] font-black text-slate-600 uppercase tracking-widest mb-1">Availability</span>
-                                                <div className="flex items-center gap-1.5 text-slate-300 text-sm font-bold">
-                                                    <MapPin className="w-3 h-3 text-indigo-400" />
+                                                <div className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300 text-sm font-bold">
+                                                    <MapPin className="w-3 h-3 text-indigo-500 dark:text-indigo-400" />
                                                     {s.location || 'HQ Only'}
                                                 </div>
                                             </div>

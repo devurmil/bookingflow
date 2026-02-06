@@ -112,13 +112,13 @@ const AdminProfile = () => {
     };
 
     return (
-        <div className="flex min-h-screen bg-slate-950 text-white">
+        <div className="flex min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white">
             <AdminSidebar />
 
             <main className="flex-1 ml-72 p-12">
                 <header className="mb-12 flex items-center justify-between">
                     <div>
-                        <h2 className="text-4xl font-black tracking-tight text-white mb-2">Account Control</h2>
+                        <h2 className="text-4xl font-black tracking-tight text-slate-900 dark:text-white mb-2">Account Control</h2>
                         <p className="text-slate-500 font-bold text-xs uppercase tracking-[0.3em]">Administrator Terminal</p>
                     </div>
                     <div className="flex items-center gap-4">
@@ -137,11 +137,11 @@ const AdminProfile = () => {
                         animate={{ opacity: 1, y: 0 }}
                         className="lg:col-span-1 space-y-6"
                     >
-                        <div className="glass-card p-10 rounded-[3rem] border-white/5 relative overflow-hidden group h-full flex flex-col justify-between">
+                        <div className="glass-card p-10 rounded-[3rem] border-slate-200 dark:border-white/5 relative overflow-hidden group h-full flex flex-col justify-between">
                             <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-600/5 blur-3xl -mr-32 -mt-32" />
 
                             <div>
-                                <div className="w-24 h-24 bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl flex items-center justify-center text-4xl font-black mb-8 border border-white/10 shadow-2xl relative">
+                                <div className="w-24 h-24 bg-gradient-to-br from-slate-200 to-slate-300 dark:from-slate-800 dark:to-slate-900 rounded-3xl flex items-center justify-center text-4xl font-black mb-8 border border-white/50 dark:border-white/10 shadow-2xl relative text-slate-700 dark:text-white">
                                     {user?.email?.charAt(0).toUpperCase()}
                                     <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-indigo-600 rounded-2xl flex items-center justify-center border-4 border-slate-950 shadow-lg">
                                         <Shield className="w-4 h-4 text-white" />
@@ -154,20 +154,20 @@ const AdminProfile = () => {
                                 <p className="text-[11px] font-black text-slate-500 uppercase tracking-widest mb-10">{user?.email}</p>
 
                                 <div className="space-y-4">
-                                    <div className="p-4 bg-slate-950/40 rounded-2xl border border-white/5 space-y-1">
-                                        <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest">Global Status</p>
-                                        <p className="text-sm font-black text-emerald-400">Authenticated Admin</p>
+                                    <div className="p-4 bg-slate-50 dark:bg-slate-950/40 rounded-2xl border border-slate-200 dark:border-white/5 space-y-1">
+                                        <p className="text-[10px] font-black text-slate-500 dark:text-slate-600 uppercase tracking-widest">Global Status</p>
+                                        <p className="text-sm font-black text-emerald-500 dark:text-emerald-400">Authenticated Admin</p>
                                     </div>
-                                    <div className="p-4 bg-slate-950/40 rounded-2xl border border-white/5 space-y-1">
-                                        <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest">Security Level</p>
-                                        <p className="text-sm font-black text-amber-400">High Protection</p>
+                                    <div className="p-4 bg-slate-50 dark:bg-slate-950/40 rounded-2xl border border-slate-200 dark:border-white/5 space-y-1">
+                                        <p className="text-[10px] font-black text-slate-500 dark:text-slate-600 uppercase tracking-widest">Security Level</p>
+                                        <p className="text-sm font-black text-amber-500 dark:text-amber-400">High Protection</p>
                                     </div>
                                 </div>
                             </div>
 
                             <button
                                 onClick={handleLogout}
-                                className="mt-8 w-full py-4 px-6 bg-slate-900/60 hover:bg-rose-600/20 text-slate-400 hover:text-rose-500 font-black uppercase tracking-widest text-[10px] rounded-2xl transition-all flex items-center justify-center gap-3 border border-white/5 group"
+                                className="mt-8 w-full py-4 px-6 bg-slate-100 dark:bg-slate-900/60 hover:bg-rose-500/10 dark:hover:bg-rose-600/20 text-slate-500 dark:text-slate-400 hover:text-rose-500 font-black uppercase tracking-widest text-[10px] rounded-2xl transition-all flex items-center justify-center gap-3 border border-slate-200 dark:border-white/5 group"
                             >
                                 <LogOut className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                                 Terminate Session
@@ -183,54 +183,54 @@ const AdminProfile = () => {
                                 initial={{ opacity: 0, scale: 0.95 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ delay: 0.1 }}
-                                className="glass-card p-8 rounded-[2.5rem] border-white/5 bg-slate-900/30"
+                                className="glass-card p-8 rounded-[2.5rem] border-slate-200 dark:border-white/5 bg-white/50 dark:bg-slate-900/30"
                             >
-                                <div className="w-10 h-10 bg-indigo-500/10 rounded-xl flex items-center justify-center text-indigo-400 mb-4">
+                                <div className="w-10 h-10 bg-indigo-500/10 rounded-xl flex items-center justify-center text-indigo-500 dark:text-indigo-400 mb-4">
                                     <Users className="w-5 h-5" />
                                 </div>
                                 <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Total Users</h4>
-                                <p className="text-3xl font-black text-white">{stats.totalUsers}</p>
+                                <p className="text-3xl font-black text-slate-900 dark:text-white">{stats.totalUsers}</p>
                             </motion.div>
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.95 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ delay: 0.2 }}
-                                className="glass-card p-8 rounded-[2.5rem] border-white/5 bg-slate-900/30"
+                                className="glass-card p-8 rounded-[2.5rem] border-slate-200 dark:border-white/5 bg-white/50 dark:bg-slate-900/30"
                             >
-                                <div className="w-10 h-10 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-400 mb-4">
+                                <div className="w-10 h-10 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-500 dark:text-emerald-400 mb-4">
                                     <Database className="w-5 h-5" />
                                 </div>
                                 <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Live Services</h4>
-                                <p className="text-3xl font-black text-white">{stats.totalServices}</p>
+                                <p className="text-3xl font-black text-slate-900 dark:text-white">{stats.totalServices}</p>
                             </motion.div>
                         </div>
 
                         {/* Quick Settings Form */}
-                        <div className="glass-card p-10 rounded-[3rem] border-white/5 bg-slate-900/40 space-y-6">
+                        <div className="glass-card p-10 rounded-[3rem] border-slate-200 dark:border-white/5 bg-white/50 dark:bg-slate-900/40 space-y-6">
                             <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] mb-4">Identity Sync</h4>
                             <div className="space-y-4">
                                 <div className="space-y-2">
                                     <label className="text-[9px] font-bold text-slate-600 uppercase tracking-widest ml-1">Admin Display Name</label>
                                     <div className="relative group">
-                                        <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600 group-focus-within:text-indigo-400 transition-colors" />
+                                        <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-600 group-focus-within:text-indigo-400 transition-colors" />
                                         <input
                                             type="text"
                                             value={formData.name}
                                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                            className="w-full bg-slate-950/50 border border-white/5 rounded-2xl py-3 pl-12 pr-4 text-xs text-white outline-none transition-all"
+                                            className="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-white/5 rounded-2xl py-3 pl-12 pr-4 text-xs text-slate-900 dark:text-white outline-none transition-all"
                                         />
                                     </div>
                                 </div>
                                 <div className="space-y-2">
                                     <label className="text-[9px] font-bold text-slate-600 uppercase tracking-widest ml-1">Universal Key Update</label>
                                     <div className="relative group">
-                                        <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600 group-focus-within:text-indigo-400 transition-colors" />
+                                        <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-600 group-focus-within:text-indigo-400 transition-colors" />
                                         <input
                                             type="password"
                                             placeholder="Leave blank to keep current"
                                             value={formData.newPassword}
                                             onChange={(e) => setFormData({ ...formData, newPassword: e.target.value })}
-                                            className="w-full bg-slate-950/50 border border-white/5 rounded-2xl py-3 pl-12 pr-4 text-xs text-white outline-none transition-all"
+                                            className="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-white/5 rounded-2xl py-3 pl-12 pr-4 text-xs text-slate-900 dark:text-white outline-none transition-all"
                                         />
                                     </div>
                                 </div>
@@ -249,22 +249,22 @@ const AdminProfile = () => {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.3 }}
-                            className="glass-card p-10 rounded-[3rem] border-white/5 bg-slate-900/20"
+                            className="glass-card p-10 rounded-[3rem] border-slate-200 dark:border-white/5 bg-white/40 dark:bg-slate-900/20"
                         >
                             <div className="flex items-center gap-4 mb-10">
-                                <div className="w-12 h-12 bg-slate-800 rounded-2xl flex items-center justify-center text-slate-400">
+                                <div className="w-12 h-12 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center justify-center text-slate-500 dark:text-slate-400">
                                     <Settings className="w-6 h-6" />
                                 </div>
-                                <h3 className="text-xl font-black tracking-tight">Security & Preferences</h3>
+                                <h3 className="text-xl font-black tracking-tight text-slate-900 dark:text-white">Security & Preferences</h3>
                             </div>
 
                             <div className="space-y-4">
-                                <div className="p-8 bg-slate-950/40 rounded-[2rem] border border-white/5 flex flex-col items-center text-center space-y-4">
+                                <div className="p-8 bg-slate-50 dark:bg-slate-950/40 rounded-[2rem] border border-slate-200 dark:border-white/5 flex flex-col items-center text-center space-y-4">
                                     <div className="w-16 h-16 bg-amber-500/10 rounded-full flex items-center justify-center text-amber-500">
                                         <Shield className="w-8 h-8" />
                                     </div>
                                     <div>
-                                        <h4 className="text-sm font-black text-white">Security Protocol</h4>
+                                        <h4 className="text-sm font-black text-slate-900 dark:text-white">Security Protocol</h4>
                                         <p className="text-[11px] font-medium text-slate-500 max-w-xs mx-auto mt-1">Updates to these credentials take immediate effect across all administrative entry points.</p>
                                     </div>
                                     <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-500/10 border border-amber-500/20 rounded-full">
