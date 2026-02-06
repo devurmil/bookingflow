@@ -57,9 +57,9 @@ const AdminSidebar = () => {
 
     const navItems = [
         { path: "/admin", label: "Dashboard", icon: LayoutDashboard, gradient: "from-indigo-500 to-blue-600" },
-        { path: "/admin/services", label: "Services", icon: Wrench, gradient: "from-emerald-500 to-teal-600" },
-        { path: "/admin/appointments", label: "Appointments", icon: CalendarCheck, gradient: "from-amber-500 to-orange-600" },
-        { path: "/admin/users", label: "Users", icon: Users, gradient: "from-rose-500 to-pink-600" },
+        { path: "/services", label: "Services", icon: Wrench, gradient: "from-emerald-500 to-teal-600" },
+        { path: "/appointments", label: "Appointments", icon: CalendarCheck, gradient: "from-amber-500 to-orange-600" },
+        { path: "/users", label: "Users", icon: Users, gradient: "from-rose-500 to-pink-600" },
     ];
 
     return (

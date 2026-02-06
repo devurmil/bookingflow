@@ -207,7 +207,9 @@ const Appointments = () => {
                                                 </div>
                                                 <div className="flex items-center gap-2 text-xs font-bold text-slate-500">
                                                     <User className="w-3.5 h-3.5 text-amber-400/60" />
-                                                    ID: {(a.userId || "0000").slice(-4).toUpperCase()}
+                                                    User ID: {(a.userId || "0000").slice(-4).toUpperCase()}
+                                                    <p>||</p>
+                                                    Order ID: {a.id.substring(0, 8)}
                                                 </div>
                                             </div>
                                             {a.booking?.instructions && (

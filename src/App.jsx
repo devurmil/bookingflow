@@ -74,7 +74,7 @@ function App() {
         />
 
         <Route
-          path="/admin/services"
+          path="/services"
           element={
             <ProtectedRoute role="admin">
               <AdminServices />
@@ -83,7 +83,7 @@ function App() {
         />
 
         <Route
-          path="/admin/appointments"
+          path="/appointments"
           element={
             <ProtectedRoute role="admin">
               <AdminAppointments />
@@ -92,7 +92,7 @@ function App() {
         />
 
         <Route
-          path="/admin/users"
+          path="/users"
           element={
             <ProtectedRoute role="admin">
               <AdminUsers />
