@@ -6,7 +6,7 @@ const Unauthorized = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="min-h-screen bg-slate-950 flex items-center justify-center p-6 relative overflow-hidden">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center p-6 relative overflow-hidden">
             {/* Background Decor */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-rose-600/10 blur-[150px] rounded-full pointer-events-none" />
 
@@ -27,18 +27,18 @@ const Unauthorized = () => {
                         <ShieldAlert className="w-12 h-12 text-rose-500" />
                     </motion.div>
 
-                    <h1 className="text-6xl font-black text-white mb-4 tracking-tighter">403</h1>
-                    <h2 className="text-2xl font-bold text-white mb-4 uppercase tracking-widest">Protocol Breach</h2>
-                    <p className="text-slate-400 font-medium mb-10 leading-relaxed">
+                    <h1 className="text-6xl font-black text-slate-900 dark:text-white mb-4 tracking-tighter">403</h1>
+                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4 uppercase tracking-widest">Protocol Breach</h2>
+                    <p className="text-slate-600 dark:text-slate-400 font-medium mb-10 leading-relaxed">
                         Validation failed. Your current identity token lacks the necessary clearance for this restricted sector.
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <button
                             onClick={() => navigate('/')}
-                            className="flex items-center justify-center gap-2 px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all border border-slate-800 active:scale-95 group"
+                            className="flex items-center justify-center gap-2 px-8 py-4 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-white rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all border border-slate-200 dark:border-slate-800 active:scale-95 group"
                         >
-                            <Home className="w-4 h-4 text-indigo-400 group-hover:scale-110 transition-transform" />
+                            <Home className="w-4 h-4 text-indigo-500 dark:text-indigo-400 group-hover:scale-110 transition-transform" />
                             Return Base
                         </button>
                         <button
@@ -51,9 +51,9 @@ const Unauthorized = () => {
                     </div>
                 </div>
 
-                <div className="mt-8 flex justify-center items-center gap-3 opacity-30">
+                <div className="mt-8 flex justify-center items-center gap-3 opacity-40 dark:opacity-30">
                     <div className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" />
-                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white">Restricted Zone</span>
+                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-900 dark:text-white">Restricted Zone</span>
                 </div>
             </motion.div>
         </div>

@@ -49,7 +49,7 @@ const Register = () => {
     };
 
     return (
-        <div className="min-h-screen bg-slate-950 flex items-center justify-center p-6 relative overflow-hidden">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center p-6 relative overflow-hidden">
             {/* Background Decor */}
             <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-indigo-600/10 blur-[120px] rounded-full" />
             <div className="absolute bottom-[-10%] right-[-10%] w-[400px] h-[400px] bg-purple-600/10 blur-[100px] rounded-full" />
@@ -69,11 +69,11 @@ const Register = () => {
                     >
                         <UserPlus className="w-8 h-8 text-white" />
                     </motion.div>
-                    <h1 className="text-4xl font-black text-white mb-2 tracking-tight">System <span className="text-emerald-500">Registry</span></h1>
-                    <p className="text-slate-400 font-medium">Initialize your professional profile within our network.</p>
+                    <h1 className="text-4xl font-black text-slate-900 dark:text-white mb-2 tracking-tight">System <span className="text-emerald-500">Registry</span></h1>
+                    <p className="text-slate-600 dark:text-slate-400 font-medium">Initialize your professional profile within our network.</p>
                 </div>
 
-                <div className="glass-card p-8 rounded-[2.5rem] border border-slate-800/60 shadow-2xl">
+                <div className="glass-card p-8 rounded-[2.5rem] border border-slate-200 dark:border-slate-800/60 shadow-2xl">
                     <form onSubmit={handleRegister} className="space-y-5">
                         <div className="space-y-2">
                             <label className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-500 ml-1">Legal Identity</label>
@@ -84,7 +84,7 @@ const Register = () => {
                                     placeholder="Full Name"
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
-                                    className="w-full bg-slate-950/50 border border-slate-800 focus:border-emerald-500/50 py-4 pl-12 pr-6 rounded-2xl text-sm text-white outline-none transition-all placeholder:text-slate-700"
+                                    className="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 focus:border-emerald-500/50 py-4 pl-12 pr-6 rounded-2xl text-sm text-slate-900 dark:text-white outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-700"
                                     required
                                 />
                             </div>
@@ -99,7 +99,7 @@ const Register = () => {
                                     placeholder="operator@nexus.io"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="w-full bg-slate-950/50 border border-slate-800 focus:border-emerald-500/50 py-4 pl-12 pr-6 rounded-2xl text-sm text-white outline-none transition-all placeholder:text-slate-700"
+                                    className="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 focus:border-emerald-500/50 py-4 pl-12 pr-6 rounded-2xl text-sm text-slate-900 dark:text-white outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-700"
                                     required
                                 />
                             </div>
@@ -114,7 +114,7 @@ const Register = () => {
                                     placeholder="••••••••"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="w-full bg-slate-950/50 border border-slate-800 focus:border-emerald-500/50 py-4 pl-12 pr-6 rounded-2xl text-sm text-white outline-none transition-all placeholder:text-slate-700"
+                                    className="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 focus:border-emerald-500/50 py-4 pl-12 pr-6 rounded-2xl text-sm text-slate-900 dark:text-white outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-700"
                                     required
                                 />
                             </div>
@@ -136,7 +136,7 @@ const Register = () => {
                         </button>
                     </form>
 
-                    <div className="mt-8 pt-8 border-t border-slate-800/60 text-center">
+                    <div className="mt-8 pt-8 border-t border-slate-200 dark:border-slate-800/60 text-center">
                         <p className="text-slate-500 text-sm font-medium">
                             Already registered?{" "}
                             <span
@@ -149,12 +149,12 @@ const Register = () => {
                     </div>
                 </div>
 
-                <div className="mt-12 flex justify-center gap-8 opacity-20 filter grayscale contrast-125">
-                    <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-white">
+                <div className="mt-12 flex justify-center gap-8 opacity-40 dark:opacity-20 filter grayscale contrast-125">
+                    <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-900 dark:text-white">
                         <ShieldCheck className="w-3 h-3" />
                         GDPR COMPLIANT
                     </div>
-                    <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-white">
+                    <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-900 dark:text-white">
                         <Zap className="w-3 h-3 text-amber-500" />
                         INSTANT PROVISIONING
                     </div>

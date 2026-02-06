@@ -133,45 +133,63 @@ const Home = () => {
                             transition={{ delay: idx * 0.1 }}
                             className="group relative"
                         >
-                            <div className="bg-white dark:bg-slate-900/80 p-8 rounded-[2.5rem] h-full flex flex-col border border-slate-200 dark:border-white/5 hover:border-indigo-500/30 dark:hover:border-indigo-500/30 transition-all duration-500 shadow-xl dark:shadow-2xl">
-                                <div className="flex items-start justify-between mb-8">
-                                    <div className="w-14 h-14 bg-slate-50 dark:bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-500 dark:text-indigo-400 group-hover:scale-110 transition-transform">
-                                        <Zap className="w-7 h-7" />
+                            <div className="bg-white dark:bg-slate-900/80 p-4 rounded-[2.5rem] h-full flex flex-col border border-slate-200 dark:border-white/5 hover:border-indigo-500/30 dark:hover:border-indigo-500/30 transition-all duration-500 shadow-xl dark:shadow-2xl overflow-hidden">
+                                {s.imageUrl && (
+                                    <div className="w-full h-48 rounded-[2rem] overflow-hidden mb-6 relative">
+                                        <div className="absolute inset-0 bg-indigo-500/10 group-hover:bg-transparent transition-colors z-10" />
+                                        <img
+                                            src={s.imageUrl}
+                                            alt={s.title}
+                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                        />
                                     </div>
-                                    <div className="flex flex-col items-end">
-                                        <span className="text-2xl font-black text-slate-900 dark:text-white">${s.price}</span>
-                                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Starting Rate</span>
+                                )}
+                                <div className="px-4 pb-4 flex-1 flex flex-col">
+                                    <div className="flex items-start justify-between mb-6">
+                                        {!s.imageUrl ? (
+                                            <div className="w-14 h-14 bg-slate-50 dark:bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-500 dark:text-indigo-400 group-hover:scale-110 transition-transform">
+                                                <Zap className="w-7 h-7" />
+                                            </div>
+                                        ) : (
+                                            <div className="w-12 h-12 bg-slate-50 dark:bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-500 dark:text-indigo-400">
+                                                <Zap className="w-6 h-6" />
+                                            </div>
+                                        )}
+                                        <div className="flex flex-col items-end">
+                                            <span className="text-2xl font-black text-slate-900 dark:text-white">${s.price}</span>
+                                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Starting Rate</span>
+                                        </div>
                                     </div>
+
+                                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">{s.title}</h3>
+                                    <p className="text-slate-400 text-sm font-medium leading-relaxed mb-6">
+                                        {s.description || "High-performance service optimized for maximum results within our integrated workflow ecosystem."}
+                                    </p>
+
+                                    <div className="space-y-3 mb-8 mt-auto">
+                                        <div className="flex items-center gap-3 text-slate-500 text-xs font-bold">
+                                            <MapPin className="w-4 h-4 text-indigo-500" />
+                                            {s.location || "Remote Access"}
+                                        </div>
+                                        <div className="flex items-center gap-3 text-slate-500 text-xs font-bold">
+                                            <Clock className="w-4 h-4 text-indigo-500" />
+                                            Estimated: 60-90 min
+                                        </div>
+                                    </div>
+
+                                    <button
+                                        onClick={() => {
+                                            if (!user) return toast.error("Please login to continue.");
+                                            setSelectedService(s);
+                                            setStep(1);
+                                        }}
+                                        disabled={loading}
+                                        className="w-full py-4 bg-slate-900 group-hover:bg-indigo-600 text-white rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all flex items-center justify-center gap-2 shadow-xl active:scale-95 disabled:opacity-50"
+                                    >
+                                        Initialize Booking
+                                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                    </button>
                                 </div>
-
-                                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">{s.title}</h3>
-                                <p className="text-slate-400 text-sm font-medium leading-relaxed mb-6">
-                                    {s.description || "High-performance service optimized for maximum results within our integrated workflow ecosystem."}
-                                </p>
-
-                                <div className="space-y-3 mb-8 mt-auto">
-                                    <div className="flex items-center gap-3 text-slate-500 text-xs font-bold">
-                                        <MapPin className="w-4 h-4 text-indigo-500" />
-                                        {s.location || "Remote Access"}
-                                    </div>
-                                    <div className="flex items-center gap-3 text-slate-500 text-xs font-bold">
-                                        <Clock className="w-4 h-4 text-indigo-500" />
-                                        Estimated: 60-90 min
-                                    </div>
-                                </div>
-
-                                <button
-                                    onClick={() => {
-                                        if (!user) return toast.error("Please login to continue.");
-                                        setSelectedService(s);
-                                        setStep(1);
-                                    }}
-                                    disabled={loading}
-                                    className="w-full py-4 bg-slate-900 group-hover:bg-indigo-600 text-white rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all flex items-center justify-center gap-2 shadow-xl active:scale-95 disabled:opacity-50"
-                                >
-                                    Initialize Booking
-                                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                                </button>
                             </div>
                         </motion.div>
                     ))}
@@ -190,7 +208,7 @@ const Home = () => {
                                         <motion.div
                                             initial={{ width: "50%" }}
                                             animate={{ width: step === 1 ? "50%" : "100%" }}
-                                            className="h-full bg-indigo-600 shadow-[0_0_20px_rgba(79,70,229,0.5)]"
+                                            className="h-full bg-indigo-400 dark:bg-indigo-600 shadow-[0_0_20px_rgba(79,70,229,0.5)]"
                                         />
                                     </div>
 
@@ -198,11 +216,11 @@ const Home = () => {
                                         <div className="flex items-center justify-between mb-8">
                                             <div>
                                                 <span className="text-[10px] font-black text-indigo-400 uppercase tracking-[0.3em] block mb-2">Step {step} of 2</span>
-                                                <h3 className="text-3xl font-black text-white tracking-tight">
+                                                <h3 className="text-3xl font-black text-gray-900 dark:text-white tracking-tight">
                                                     {step === 1 ? "Customize Session" : "Final Verification"}
                                                 </h3>
                                             </div>
-                                            <div className="w-12 h-12 bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-400">
+                                            <div className="w-12 h-12 bg-indigo-500/20 dark:bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-700 dark:text-indigo-400">
                                                 {step === 1 ? <Calendar className="w-6 h-6" /> : <Info className="w-6 h-6" />}
                                             </div>
                                         </div>
@@ -211,24 +229,24 @@ const Home = () => {
                                             <div className="space-y-6">
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                     <div className="space-y-2">
-                                                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Select Date</label>
+                                                        <label className="text-[10px] font-bold text-slate-900 dark:text-slate-500 uppercase tracking-widest ml-1">Select Date</label>
                                                         <div className="relative group">
-                                                            <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 z-10 group-focus-within:text-indigo-500 transition-colors pointer-events-none" />
+                                                            <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-900 dark:text-slate-500 z-10 group-focus-within:text-indigo-500 transition-colors pointer-events-none" />
                                                             <DatePicker
                                                                 selected={bookingDate}
                                                                 onChange={(date) => setBookingDate(date)}
                                                                 dateFormat="MMMM d, yyyy"
                                                                 placeholderText="Choose date..."
                                                                 minDate={new Date()}
-                                                                className="w-full bg-slate-950/50 border border-white/5 focus:border-indigo-500/50 rounded-2xl p-4 pl-12 text-sm text-white transition-all outline-none"
+                                                                className="w-full bg-gray-300 dark:bg-slate-950/40 border border-white/5 focus:border-indigo-500/50 rounded-2xl p-4 pl-12 text-sm text-gray-800 dark:text-slate-200 transition-all outline-none"
                                                                 calendarClassName="glass-card !border-white/10 !rounded-[2rem] shadow-2xl"
                                                             />
                                                         </div>
                                                     </div>
                                                     <div className="space-y-2">
-                                                        <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Select Time</label>
+                                                        <label className="text-[10px] font-bold text-slate-900 dark:text-slate-500 uppercase tracking-widest ml-1">Select Time</label>
                                                         <div className="relative group">
-                                                            <Clock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 z-10 group-focus-within:text-indigo-500 transition-colors pointer-events-none" />
+                                                            <Clock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-900 dark:text-slate-500 z-10 group-focus-within:text-indigo-500 transition-colors pointer-events-none" />
                                                             <DatePicker
                                                                 selected={bookingDate}
                                                                 onChange={(date) => setBookingDate(date)}
@@ -238,7 +256,7 @@ const Home = () => {
                                                                 timeCaption="Time"
                                                                 dateFormat="h:mm aa"
                                                                 placeholderText="Choose time..."
-                                                                className="w-full bg-slate-950/50 border border-white/5 focus:border-indigo-500/50 rounded-2xl p-4 pl-12 text-sm text-white transition-all outline-none"
+                                                                className="w-full bg-gray-300 dark:bg-slate-950/40 border border-white/5 focus:border-indigo-500/50 rounded-2xl p-4 pl-12 text-sm text-gray-800 dark:text-slate-200 transition-all outline-none"
                                                                 calendarClassName="glass-card !border-white/10 !rounded-[2rem] shadow-2xl"
                                                             />
                                                         </div>
@@ -246,14 +264,14 @@ const Home = () => {
                                                 </div>
 
                                                 <div className="space-y-2">
-                                                    <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Special Requirements</label>
+                                                    <label className="text-[10px] font-bold dark:text-slate-500 text-slate-900 uppercase tracking-widest ml-1">Special Requirements</label>
                                                     <div className="relative group">
-                                                        <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-slate-500 group-focus-within:text-indigo-500 transition-colors" />
+                                                        <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-slate-900 dark:text-slate-500 group-focus-within:text-indigo-500 transition-colors" />
                                                         <textarea
                                                             placeholder="Detail any specific needs for this session..."
                                                             value={instructions}
                                                             onChange={(e) => setInstructions(e.target.value)}
-                                                            className="w-full bg-slate-950/50 border border-white/5 focus:border-indigo-500/50 rounded-2xl p-4 pl-12 text-sm text-white transition-all outline-none min-h-[120px] resize-none"
+                                                            className="w-full bg-gray-300 dark:bg-slate-950/40 border border-white/5 focus:border-indigo-500/50 rounded-2xl p-4 pl-12 text-sm text-gray-800 dark:text-slate-200 transition-all outline-none min-h-[120px] resize-none"
                                                         />
                                                     </div>
                                                 </div>
@@ -266,7 +284,7 @@ const Home = () => {
                                                             setBookingDate(null);
                                                             setInstructions("");
                                                         }}
-                                                        className="flex-1 py-4 px-6 bg-slate-900 hover:bg-slate-800 text-slate-400 font-black uppercase tracking-widest text-[10px] rounded-2xl transition-all flex items-center justify-center gap-2 border border-white/5"
+                                                        className="flex-1 py-4 px-6 dark:bg-slate-900 bg-gray-600 hover:bg-slate-800 dark:text-slate-400 text-slate-100 font-black uppercase tracking-widest text-[10px] rounded-2xl transition-all flex items-center justify-center gap-2 border border-white/5"
                                                     >
                                                         <ArrowLeft className="w-4 h-4" /> Discard
                                                     </button>
@@ -276,7 +294,7 @@ const Home = () => {
                                                                 return toast.error("Please select date & time");
                                                             setStep(2);
                                                         }}
-                                                        className="flex-[2] py-4 px-6 bg-indigo-600 hover:bg-indigo-500 text-white font-black uppercase tracking-widest text-[10px] rounded-2xl transition-all shadow-lg shadow-indigo-600/20 flex items-center justify-center gap-2"
+                                                        className="flex-[2] py-4 px-6 dark:bg-indigo-600 bg-indigo-500 hover:bg-indigo-400 dark:hover:bg-indigo-700 text-white font-black uppercase tracking-widest text-[10px] rounded-2xl transition-all shadow-lg shadow-indigo-600/20 flex items-center justify-center gap-2"
                                                     >
                                                         Review Order <ArrowRight className="w-4 h-4" />
                                                     </button>
@@ -284,27 +302,27 @@ const Home = () => {
                                             </div>
                                         ) : (
                                             <div className="space-y-8">
-                                                <div className="bg-slate-950/40 border border-white/5 rounded-3xl p-6 space-y-4">
+                                                <div className="dark:bg-slate-950/40 bg-gray-400/70 border border-white/5 rounded-3xl p-6 space-y-4">
                                                     <div className="flex justify-between items-center pb-4 border-b border-white/5">
-                                                        <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Service</span>
-                                                        <span className="text-sm font-bold text-white">{selectedService.title}</span>
+                                                        <span className="text-[15px] font-bold dark:text-slate-500 text-gray-900 uppercase tracking-widest">Service</span>
+                                                        <span className="text-md font-bold text-indigo-800 dark:text-white">{selectedService.title}</span>
                                                     </div>
                                                     <div className="flex justify-between items-center pb-4 border-b border-white/5">
-                                                        <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Schedule</span>
-                                                        <span className="text-sm font-bold text-white">
+                                                        <span className="text-[15px] font-bold dark:text-slate-500 text-gray-900 uppercase tracking-widest">Schedule</span>
+                                                        <span className="text-md font-bold dark:text-white text-indigo-800">
                                                             {bookingDate?.toLocaleDateString()} @ {bookingDate?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                                         </span>
                                                     </div>
                                                     <div className="flex justify-between items-center">
-                                                        <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Investment</span>
-                                                        <span className="text-xl font-black text-indigo-400">${selectedService.price}</span>
+                                                        <span className="text-[15px] font-bold dark:text-slate-500 text-gray-900 uppercase tracking-widest">Investment</span>
+                                                        <span className="text-xl font-black dark:text-indigo-400 text-green-900">${selectedService.price}</span>
                                                     </div>
                                                 </div>
 
                                                 <div className="flex flex-col md:flex-row gap-4">
                                                     <button
                                                         onClick={() => setStep(1)}
-                                                        className="flex-1 py-4 px-6 bg-slate-900 hover:bg-slate-800 text-slate-400 font-black uppercase tracking-widest text-[10px] rounded-2xl transition-all flex items-center justify-center gap-2 border border-white/5"
+                                                        className="flex-1 py-4 px-6 bg-slate-900 hover:bg-slate-800 dark:text-slate-400 text-slate-100 font-black uppercase tracking-widest text-[10px] rounded-2xl transition-all flex items-center justify-center gap-2 border border-white/5"
                                                     >
                                                         <ArrowLeft className="w-4 h-4" /> Edit Details
                                                     </button>
@@ -323,8 +341,9 @@ const Home = () => {
                         )}
                     </AnimatePresence>
                 </div>
-            )}
-        </UserLayout>
+            )
+            }
+        </UserLayout >
     );
 };
 

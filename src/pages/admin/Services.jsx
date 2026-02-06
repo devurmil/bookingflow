@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { collection, addDoc, getDocs, deleteDoc, doc, Timestamp, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig";
 import { toast } from "react-toastify";
+import { uploadToCloudinary } from "../../utils/cloudinary";
 import AdminLayout from "../../components/layout/AdminLayout";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -18,7 +19,9 @@ import {
     FileText,
     Grid,
     Edit2,
-    X
+    X,
+    Image as ImageIcon,
+    Upload
 } from "lucide-react";
 
 const Services = () => {
@@ -32,7 +35,11 @@ const Services = () => {
         price: "",
         location: "",
         category: "General",
+        imageUrl: "",
     });
+
+    const [imageFile, setImageFile] = useState(null);
+    const [imagePreview, setImagePreview] = useState(null);
 
     const [isEditing, setIsEditing] = useState(false);
     const [editingId, setEditingId] = useState(null);
@@ -47,6 +54,14 @@ const Services = () => {
             toast.error("Failed to load services");
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setImageFile(file);
+            setImagePreview(URL.createObjectURL(file));
         }
     };
 
@@ -73,11 +88,18 @@ const Services = () => {
         if (!formData.price) return toast.warn("Service price required");
 
         try {
+            let imageUrl = formData.imageUrl;
+
+            if (imageFile) {
+                imageUrl = await uploadToCloudinary(imageFile);
+            }
+
             if (isEditing) {
                 const serviceRef = doc(db, "services", editingId);
                 await updateDoc(serviceRef, {
                     ...formData,
-                    price: parseFloat(formData.price)
+                    price: parseFloat(formData.price),
+                    imageUrl
                 });
                 toast.success("Service intelligence updated");
                 setIsEditing(false);
@@ -86,12 +108,15 @@ const Services = () => {
                 await addDoc(collection(db, "services"), {
                     ...formData,
                     price: parseFloat(formData.price),
+                    imageUrl,
                     active: true,
                     createdAt: Timestamp.now()
                 });
                 toast.success("New service deployed");
             }
-            setFormData({ title: "", description: "", price: "", location: "", category: "General" });
+            setFormData({ title: "", description: "", price: "", location: "", category: "General", imageUrl: "" });
+            setImageFile(null);
+            setImagePreview(null);
             fetchServices();
         } catch (error) {
             console.error("Error saving service: ", error);
@@ -105,8 +130,11 @@ const Services = () => {
             description: service.description || "",
             price: service.price || "",
             location: service.location || "",
-            category: service.category || "General"
+            category: service.category || "General",
+            imageUrl: service.imageUrl || ""
         });
+        setImagePreview(service.imageUrl || null);
+        setImageFile(null);
         setIsEditing(true);
         setEditingId(service.id);
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -115,7 +143,10 @@ const Services = () => {
     const cancelEdit = () => {
         setIsEditing(false);
         setEditingId(null);
-        setFormData({ title: "", description: "", price: "", location: "", category: "General" });
+        setEditingId(null);
+        setFormData({ title: "", description: "", price: "", location: "", category: "General", imageUrl: "" });
+        setImageFile(null);
+        setImagePreview(null);
     };
 
     const deleteService = async (id) => {
@@ -204,6 +235,43 @@ const Services = () => {
                                     placeholder="e.g. Executive Strategy Session"
                                     className="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 focus:border-indigo-500/50 p-4 rounded-2xl text-slate-900 dark:text-white text-sm outline-none transition-all placeholder:text-slate-400 dark:placeholder:text-slate-600"
                                 />
+                            </div>
+
+                            <div className="space-y-2">
+                                <label className="flex items-center gap-2 text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] ml-1">
+                                    <ImageIcon className="w-3 h-3" /> Cover Image
+                                </label>
+                                <div className="flex items-center gap-4">
+                                    <div className="relative w-24 h-24 rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex-shrink-0">
+                                        {imagePreview ? (
+                                            <img
+                                                src={imagePreview}
+                                                alt="Preview"
+                                                className="w-full h-full object-cover"
+                                            />
+                                        ) : (
+                                            <div className="flex items-center justify-center w-full h-full text-slate-400">
+                                                <ImageIcon className="w-8 h-8 opacity-50" />
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className="flex-1">
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={handleImageChange}
+                                            id="image-upload"
+                                            className="hidden"
+                                        />
+                                        <label
+                                            htmlFor="image-upload"
+                                            className="flex items-center justify-center gap-2 w-full p-4 bg-slate-50 dark:bg-slate-950/50 border border-dashed border-slate-300 dark:border-slate-700 rounded-2xl cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-900 transition-all group"
+                                        >
+                                            <Upload className="w-5 h-5 text-slate-400 group-hover:text-indigo-500 transition-colors" />
+                                            <span className="text-sm font-medium text-slate-500 group-hover:text-indigo-500 transition-colors">Choose File</span>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
 
                             <div className="grid grid-cols-2 gap-4">
@@ -308,12 +376,28 @@ const Services = () => {
                                         animate={{ opacity: 1, y: 0 }}
                                         className={`group relative glass-card p-6 rounded-[2rem] border-2 transition-all duration-300 ${s.active ? 'border-transparent hover:border-indigo-500/30' : 'border-red-500/20 opacity-60'}`}
                                     >
-                                        <div className="flex items-start justify-between mb-6">
-                                            <div className="flex flex-col gap-1">
-                                                <span className="px-3 py-1 bg-indigo-500/10 text-indigo-400 text-[10px] font-black uppercase tracking-widest rounded-full border border-indigo-500/10 w-fit">
+                                        <div className="relative mb-6 rounded-2xl overflow-hidden h-40 bg-slate-100 dark:bg-slate-900">
+                                            {s.imageUrl ? (
+                                                <img
+                                                    src={s.imageUrl}
+                                                    alt={s.title}
+                                                    className="w-full h-full object-cover"
+                                                />
+                                            ) : (
+                                                <div className="w-full h-full flex items-center justify-center text-slate-300 dark:text-slate-700">
+                                                    <ImageIcon className="w-12 h-12 opacity-50" />
+                                                </div>
+                                            )}
+                                            <div className="absolute top-3 left-3">
+                                                <span className="px-3 py-1 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm text-indigo-500 text-[10px] font-black uppercase tracking-widest rounded-full border border-indigo-500/10 shadow-sm">
                                                     {s.category}
                                                 </span>
-                                                <h4 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors mt-2">{s.title}</h4>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex items-start justify-between mb-4">
+                                            <div className="flex flex-col gap-1">
+                                                <h4 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors">{s.title}</h4>
                                             </div>
                                             <div className="flex gap-2">
                                                 <button

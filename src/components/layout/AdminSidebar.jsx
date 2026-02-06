@@ -89,7 +89,7 @@ const AdminSidebar = () => {
 
             {/* Navigation */}
             <nav className="flex-1 px-4 space-y-1.5 scrollbar-none overflow-y-auto">
-                <p className="px-5 mb-4 text-[10px] font-bold text-slate-600 uppercase tracking-[0.2em] flex items-center gap-2">
+                <p className="px-5 mb-4 text-[10px] font-bold dark:text-slate-600 text-slate-900 uppercase tracking-[0.2em] flex items-center gap-2">
                     <span className="w-1.5 h-px bg-slate-800 flex-1" />
                     Main Menu
                     <span className="w-1.5 h-px bg-slate-800 flex-1" />
@@ -107,18 +107,18 @@ const AdminSidebar = () => {
                             <div className={`
                                 flex items-center gap-4 px-5 py-3.5 rounded-2xl transition-all duration-300 relative z-10
                                 ${active
-                                    ? "text-white"
-                                    : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/40"
+                                    ? "text-slate-900 dark:text-white"
+                                    : "text-slate-800 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/40"
                                 }
                             `}>
                                 <div className={`
                                     w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300
                                     ${active
-                                        ? `bg-gradient-to-br ${item.gradient} shadow-lg shadow-indigo-500/20`
+                                        ? `bg-gradient-to-br ${item.gradient} shadow-lg shadow-indigo-500/20 dark:shadow-indigo-500/20`
                                         : "bg-slate-100 dark:bg-slate-900 shadow-inner group-hover:bg-slate-200 dark:group-hover:bg-slate-800"
                                     }
                                 `}>
-                                    <Icon className={`w-5 h-5 ${active ? "text-white" : "text-slate-500 group-hover:text-slate-300"}`} />
+                                    <Icon className={`w-5 h-5 ${active ? "text-white dark:text-white" : "text-slate-500 group-hover:text-slate-300"}`} />
                                 </div>
                                 <span className={`text-[13px] font-semibold tracking-wide ${active ? "opacity-100" : "opacity-80 group-hover:opacity-100"}`}>
                                     {item.label}
@@ -128,7 +128,7 @@ const AdminSidebar = () => {
                                         layoutId="active-pill"
                                         className="ml-auto"
                                     >
-                                        <ChevronRight className="w-4 h-4 text-indigo-400" />
+                                        <ChevronRight className="w-4 h-4 text-gray-900 dark:text-indigo-400" />
                                     </motion.div>
                                 )}
                             </div>
