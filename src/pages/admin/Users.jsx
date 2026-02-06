@@ -159,7 +159,7 @@ export default function Users() {
 
                     <div className="h-8 w-px bg-slate-800 hidden lg:block" />
 
-                    <div className="flex items-center gap-2 overflow-x-auto pb-2 lg:pb-0 w-full lg:w-auto scrollbar-none justify-center">
+                    <div className="flex items-center gap-2 overflow-hidden whitespace-nowrap pb-2 lg:pb-0 w-full lg:w-auto scrollbar-none justify-center">
                         <Filter className="w-4 h-4 text-slate-500 mr-2 flex-shrink-0" />
                         {['all', 'admin', 'user', 'inactive'].map((f) => (
                             <button
